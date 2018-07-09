@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,600");
 
 // Variables
 @import "variables";
@@ -9,6 +9,66 @@
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  background-color: transparent;
+}
+
+
+
+html, body {
+        background-color: #312e2b;
+        background: url('/img/back.jpg');
+        background-size: cover;
+      
+        font-family: 'Nunito', sans-serif;
+        font-weight: 100;
+        margin: 0;
+    }
+
+#app {
+	background-color: rgba(0, 0, 0, 0.4);
+	min-height: 100vh;
+	
+}
+
+.nav-link {
+	color: #fff !important;
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 15px;
+}
+
+.card {
+	background-color: #131313;
+	color: #fff;
+}
+
+.card-header {
+	background-color: #080808;
+	font-weight: bold;
+}
+
+
+.col-form-label {
+	font-weight: bold;
+}
+
+.btn-primary {
+	background-color: #e6912c;
+	border: none;
+}
+
+.btn-primary:hover {
+	background-color: #e6912ca6;
+}
+
+.control-label {
+	font-weight: bold;
+	font-size: 16px;
+}
+.modal-title {
+	font-weight: bold;
+}
+
+.move {
+	font-size: 22px;
 }

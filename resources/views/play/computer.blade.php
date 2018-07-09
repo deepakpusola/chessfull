@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Play with Computer <a href="#"  data-toggle="modal" style="margin: 4px;" data-target="#con-close-modal" class="btn btn-social">
+                <div class="card-header">Play with Computer <a href="#"  data-toggle="modal" style="margin-left: 15px;" data-target="#con-close-modal" class="btn btn-primary">
                                       <i class="fa fa-refresh"></i> Start New Game
-                                   </a></div>
+                                   </a></div>   
 
                 <div class="card-body">
                     <div class="row">
@@ -15,27 +15,27 @@
 
                                             <div class="col-sm-8" style="padding: 14px;">
 
-                                               <p><b>Computer</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
-                                                <br>
+                                               <p style="font-weight: bold;font-size: 22px;"><b>Computer</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
+                                               
                                                 
                                               <div id="board" style="width: 100%;"></div> 
 
                                                
                                                 <br>
-                                                <p><b>{{ Auth::user()->name }}</b> (<span class=" text-primary" id="time2">0:05:00</span>)</p>
+                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class=" text-primary" id="time2">0:05:00</span>)</p>
        
 
                                             <br>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="puzzle-detail">
+                                            <div class="col-sm-4" style="margin-top: 55px;" id="puzzle-detail">
 
                                             <h3>Moves:</h3>
                                             <div id="game-data">
                                               </div>
                                             <hr>
-                                            <p style="color: #000;font-weight: bold;"><strong>Status: </strong><span id="status"></span></p>
+                                            <p style="color: #fff;font-weight: bold;font-size: 22px;"><strong>Status: </strong><span id="status"></span></p>
                                             
                                             <hr>                        
                                             <p>
@@ -66,25 +66,25 @@
         </button>
       </div>
       <div class="modal-body">
-       <div class="form-group">
+       <div class="form-group row">
         <label for="timeBase" class="control-label col-xs-4 col-sm-6 col-md-4">Base time (min)</label>
         <div class="col-xs-4 col-sm-6 col-md-4">
           <input type="number" class="form-control" id="timeBase" value="5"></input>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group row">
         <label for="timeInc" class="control-label col-xs-4 col-sm-6 col-md-4">Increment (sec)</label>
         <div class="col-xs-4 col-sm-6 col-md-4">
           <input type="number" class="form-control" id="timeInc" value="2"></input>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group row">
         <label for="skillLevel" class="control-label col-xs-4 col-sm-6 col-md-4">Skill Level (0-20)</label>
         <div class="col-xs-6 col-sm-6 col-md-4">
           <input type="number" class="form-control" id="skillLevel" value="5"></input>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group row">
         <label for="color" class="control-label col-xs-4 col-sm-6 col-md-4">I play</label>
         <div class="col-xs-4 col-sm-6 col-md-4">
           <div class="btn-group" data-toggle="buttons">
@@ -93,7 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group hidden">
+      <div class="form-group  row" style="display: none;">
         <label for="showScore" class="control-label col-xs-4 col-sm-6 col-md-4">Show score</label>
         <div class="col-xs-4 col-sm-6 col-md-4 hidden">
           <input type="checkbox" class="form-control" id="showScore" checked></input>

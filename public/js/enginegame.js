@@ -78,8 +78,10 @@ function engineGame(options) {
     }
 
     function clockTick() {
-       
-         if(time.wtime == 0)
+         
+          var t = (time.clockColor == 'white' ? time.wtime : time.btime) + time.startTime - Date.now();
+          console.log(t);
+         if(t <= 0 && time.clockColor == 'white')
             {
                 timeOver = true;
                  swal({
@@ -90,8 +92,15 @@ function engineGame(options) {
                   confirmButtonColor: "#0048bc",
                   confirmButtonText: "Play Again!",
                   closeOnConfirm: true,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/play-computer";
+                   } else {
+                    window.location.href = "/home";
+                   }  
                 }); 
-            } else if(time.btime == 0) {
+            } else if(t <= 0 && time.clockColor == 'black') {
                 timeOver = true;
                 swal({
                   title: "Oops!",
@@ -101,6 +110,13 @@ function engineGame(options) {
                   confirmButtonColor: "#0048bc",
                   confirmButtonText: "Play Again!",
                   closeOnConfirm: true,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/play-computer";
+                   } else {
+                    window.location.href = "/home";
+                   }  
                 }); 
             } else {
                  updateClock();
@@ -183,7 +199,7 @@ function engineGame(options) {
             if (!/^[0-9]+\.$/.test(s)) { //move numbers
               m = s.split(/\s+/);
               for (var j = 0, ll = m.length; j < ll; ++j) {
-                m[j] = '<span class="gameMove' + (i + j - 1) + '"><a class="myLink" data-move="' + (i + j - 1) + '" href="#">' + m[j] + '</a></span>';
+                m[j] = '<span class="gameMove' + (i + j - 1) + '"><a class="myLink move" data-move="' + (i + j - 1) + '" >' + m[j] + '</a></span>';
               }
               s = m.join(' ');
             }
