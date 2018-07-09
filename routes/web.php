@@ -22,5 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/play-computer', 'PlayComputerController@index');
 
+Route::get('/play-friend', 'PlayFriendController@index');
+
+Route::get('/play-friend/{friendId}/{gameId}', 'PlayFriendController@index');
+
 
 Route::post('/user/game/stats', 'StatsController@index');

@@ -12,4 +12,4 @@
         game.start();
       }
 
-      newGame();
+     // newGame();
