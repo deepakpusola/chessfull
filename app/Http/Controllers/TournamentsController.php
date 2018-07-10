@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tournament;
+use App\Models\Match;
 use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
@@ -66,5 +67,11 @@ class TournamentsController extends Controller
 	
 
     	return redirect('/tournaments/' . $tournament->id);
+    }
+
+
+    public function match(Match $match)
+    {
+    	return view('tournaments.match', compact('match'));
     }
 }

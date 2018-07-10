@@ -49,3 +49,6 @@ Route::get('/tournaments/{tournament}', 'TournamentsController@show');
 Route::get('/tournaments/{tournament}/join', 'TournamentsController@join');
 
 
+Route::get('/matches/{match}', 'TournamentsController@match');
+
+

@@ -64,7 +64,7 @@
                       <td>{{ $match->opponent()->rating }}</td>
                       <td>{{ $match->starttime }}</td>
                       @if($match->starttime <= \Carbon\Carbon::now('Asia/Kolkata'))
-                      <td><a href="/tournaments/{{$tournament->id}}/join" class="btn btn-primary" >Play</a></td>
+                      <td><a href="/matches/{{$match->id}}" class="btn btn-primary">Play</a></td>
                       @endif
                     </tr>
                    @endforeach
