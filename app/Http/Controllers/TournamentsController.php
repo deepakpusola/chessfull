@@ -21,7 +21,10 @@ class TournamentsController extends Controller
     public function index()
     {
     	$live = Tournament::where('starttime', '<=', \Carbon\Carbon::now('Asia/Kolkata'))->get();
-    	return view('tournaments.index', compact('live'));
+
+    	$upcoming = Tournament::where('starttime', '>', \Carbon\Carbon::now('Asia/Kolkata'))->get();
+
+    	return view('tournaments.index', compact('live', 'upcoming'));
     }
 
 
