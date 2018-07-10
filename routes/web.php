@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-	auth()->user()->live_status = 0;
-    auth()->user()->save();
+	if(auth()->check())
+	{
+		auth()->user()->live_status = 0;
+        auth()->user()->save();
+	}
+	
     return view('welcome');
 });
 
