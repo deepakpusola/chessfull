@@ -89,6 +89,82 @@ class TournamentsController extends Controller
 
     public function match(Match $match)
     {
-    	return view('tournaments.match', compact('match'));
+    	$player1 = $match->player1;
+
+    	$player2 = $match->player2;
+
+    	if($player1 == null || $player2 == null)
+    	{
+    			
+    		return redirect('/tournaments/' . $match->tournament_id)->with('error', 'Invalid game! No opponent found.');
+    	}
+
+    	$opponent = $player1->id == auth()->id() ? $player2 : $player1;
+
+    	return view('tournaments.match', compact('match', 'opponent'));
+    }
+
+    public function play(Match $match)
+    {
+    	$player1 = $match->player1;
+
+    	$player2 = $match->player2;
+
+    	if($player1 == null || $player2 == null)
+    	{
+    			
+    		return redirect('/tournaments/' . $match->tournament_id)->with('error', 'Invalid game! No opponent found.');
+    	}
+
+    	$opponent = $player1->id == auth()->id() ? $player2 : $player1;
+
+    	$color = $player1->id == auth()->id() ? 'white' : 'black';
+
+    	$play = true;	
+
+    	return view('tournaments.match', compact('match', 'play', 'color', 'opponent'));
+    }
+
+    public function updateStatus(Match $match, $status)
+    {
+    	$opponent = $match->player1->id == auth()->id() ? $match->player2 : $match->player1;
+
+    	if($status == 'won')
+    	{
+    		$match->result = auth()->id();
+
+            //$match->tournament->players()->where('user_id', auth()->id())->pivot->points += 1;
+            
+            \DB::table('tournament_user')
+            ->where('user_id', auth()->id())
+            ->increment('points', 1);
+
+            \DB::table('tournament_user')
+            ->where('user_id', $opponent->id)
+            ->decrement('points', 1);    
+
+
+    	} elseif($status == 'lose')
+    	{
+    		$match->result = $opponent->id;
+
+            
+
+    	} else {
+    		$match->result = 0;
+
+             \DB::table('tournament_user')
+            ->where('user_id', auth()->id())
+            ->increment('points', 1);
+
+            \DB::table('tournament_user')
+            ->where('user_id', $opponent->id)
+            ->increment('points', 1);    
+
+    	} 
+
+    	$match->save();
+
+    	return response(['success'], 200);
     }
 }

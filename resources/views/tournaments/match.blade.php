@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Play with Friend <a href="/play-random"  style="margin-left: 15px;" data-target="#con-close-modal" class="btn btn-primary">
-                                      <i class="fa fa-refresh"></i> Start New Game
+                <div class="card-header">Tournament Match <a href="/tournaments/{{$match->tournament_id}}"  style="margin-left: 15px;" class="btn btn-primary">
+                                      <i class="fa fa-refresh"></i> Withdraw
                                    </a></div>   
 
                 <div class="card-body">
@@ -70,13 +70,13 @@
             </div>
         @endif
           
-          <div class="loader"></div>
+        <div class="loader"></div>
 
        <h3 class="text-center"><b>Waiting for opponent...</b></h3>   
      
       </div>
       <div class="modal-footer">
-        <a type="button" class="btn btn-secondary" href="/">Cancel</a>
+        <a type="button" class="btn btn-secondary" href="/tournaments/{{$match->tournament_id}}}">Cancel</a>
        
       </div>
     </div>
@@ -104,7 +104,7 @@
     });
     </script>
 
-    @if(!isset($opponent))
+    @if(!isset($play))
     <script type="text/javascript">
       $("#con-close-modal").modal({backdrop: 'static',
     keyboard: false})
@@ -452,73 +452,77 @@ var updateStatus = function() {
 
     if(moveColor != {{ $color }})
     {
-    var dataString = 'operation=increment' + '&points='+250;
+        var dataString = '';
   
-              $.ajax({
+        $.ajax({
               type: "POST",
-              url: '/user/game/stats/',
+              url: '/matches/' + '{{ $match->id }}' + '/won',
               data: dataString,
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
               { 
-                    
+             
               }
               });
 
-              swal({
-                  title: "You Win!",
-                  html: true,
-                  text: "<span style='color:#0a0a0a;font-weight:400'>You win the game and gain <b>250</b> skillometer points!</span>",
-                  type: "success",
-                  showCancelButton: true,
-                  confirmButtonColor: "#0048bc",
-                  confirmButtonText: "Play Again!",
-                  cancelButtonText: "Go Home!",
-                  closeOnConfirm: false,
-                  closeOnCancel: false,
-                },
-                function(isConfirm){
-                    if(isConfirm) {
-                    window.location.href = "/play-random";
-                   } else {
-                    window.location.href = "/home";
-                   }  
-                }); 
-    } else {
-        var dataString = 'operation=decrement' + '&points='+150;
-  
-              $.ajax({
-              type: "POST",
-              url: '/user/game/stats/',
-              data: dataString,
-              cache: false,
-              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
-              success: function(html, window)
-              { 
-                  console.log("LOST");
-                         
-  
-              }
-              });
+
+              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+              gameRef.set({{auth()->id()}});
+
 
               swal({
                   title: "Check And Mate!",
                   html: true,
-                  text: "<span style='color:#0a0a0a;font-weight:400'>You lose the game and lost <b>150</b> skillometer points!</span>",
-                  type: "error",
+                  text: "<span style='color:#0a0a0a;font-weight:400'>You have won the game!</span>",
+                  type: "success",
                   showCancelButton: true,
                   confirmButtonColor: "#0048bc",
-                  confirmButtonText: "Play Again!",
+                  confirmButtonText: "Go to Tournament!",
                   cancelButtonText: "Go Home!",
                   closeOnConfirm: false,
                   closeOnCancel: false,
                 },
                 function(isConfirm){
                    if(isConfirm) {
-                    window.location.href = "/play-random";
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
+                   }  
+                });
+    } else {
+        var dataString = '';
+  
+        $.ajax({
+              type: "POST",
+              url: '/matches/' + '{{ $match->id }}' + '/lose',
+              data: dataString,
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+             
+              }
+              });
+
+
+              swal({
+                  title: "Check And Mate!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>You have lost the game!</span>",
+                  type: "error",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
                    }  
                 });
     }
@@ -527,6 +531,43 @@ var updateStatus = function() {
   // draw?
   else if (game.in_draw() === true) {
     status = 'Game over, drawn position';
+    var dataString = '';
+  
+        $.ajax({
+              type: "POST",
+              url: '/matches/' + '{{ $match->id }}' + '/draw',
+              data: dataString,
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+             
+              }
+              });
+
+
+              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+              gameRef.set(0);
+
+              swal({
+                  title: "It's a draw!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>The game was a draw! Both players get the point.</span>",
+                  type: "success",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
+                   }  
+                });
   }
 
   // game still on
@@ -678,8 +719,19 @@ updateStatus();
 
 
 
-  window.onbeforeunload = function (e) {
 
+
+  window.onbeforeunload = function (e) {
+         console.log('triggered');
+          if(!game.game_over())
+          {
+             console.log('clear hit');
+            
+                  var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
+                  gameRef.set(0);
+            
+            
+          }
    
     };
 
@@ -722,12 +774,172 @@ updateStatus();
         updateStatus();
     });
 
+var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{$opponent->id}}');
+        gameStartRef.on('value', function(snapshot){
+         var val = snapshot.val();
 
+         if(val == 0)
+         {
+            if(!game.game_over())
+            {
+               var dataString = '';
+  
+              $.ajax({
+              type: "POST",
+              url: '/matches/' + '{{ $match->id }}' + '/won',
+              data: dataString,
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+                  //window.location = '/tournaments/' + '{{ $match->tournament_id }}';
+              }
+              });
+
+              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+              gameRef.set({{auth()->id()}});
+
+
+              swal({
+                  title: "Opponent withdrawn!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>The opponent has withdrawn from the game. You win!</span>",
+                  type: "success",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
+                   }  
+                });
+            } else {
+
+            }
+         }
+    });
+   
     
 
 
 
     </script>
+
+     @endif 
+
+    @if(!isset($play))
+
+
+        <script type="text/javascript">
+          // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+   var config = {
+      apiKey: "AIzaSyBl2wpX0f-Rl0aCMcD2kJceLWlm9P7JqHM",
+      authDomain: "chessfull-f48d6.firebaseapp.com",
+      databaseURL: "https://chessfull-f48d6.firebaseio.com/",
+      projectId: "chessfull-f48d6",
+      };
+   firebase.initializeApp(config);
+
+   var database = firebase.database();
+
+   var $refId = {{ $match->id }};
+
+   var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
+   gameRef.set(1);
+
+    var gameStartRef = firebase.database().ref('matches/' + $refId + '/result/');
+        gameStartRef.on('value', function(snapshot){
+         var val = snapshot.val();
+          var aid = '{{ auth()->id() }}';
+         if(val != null)
+         {
+            if(val != aid)
+            {
+                swal({
+                  title: "You had lost this game!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>You have either lost this match or you did'nt show up so the match was declared!</span>",
+                  type: "error",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
+                   }  
+                });
+            } else if(val == aid) {
+              swal({
+                  title: "You won this match!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>You have already won this match!</span>",
+                  type: "success",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
+                   }  
+                });
+             
+            } else {
+                 swal({
+                  title: "This match was a draw!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>This match was a draw. Both players got the point!</span>",
+                  type: "success",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
+                   }  
+                });
+              
+            }
+            } else {
+               var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{$opponent->id}}');
+        gameStartRef.on('value', function(snapshot){
+         var val = snapshot.val();
+
+         if(val == 1)
+         {
+            window.location = '/matches/' + '{{ $match->id }}' + '/play';
+         }
+    });
+            }
+         
+    });
+
+  
+        </script>
 
     @endif 
 

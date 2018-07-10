@@ -63,10 +63,16 @@
                       <td><a href="/players/{{$match->opponent()->id}}" style="color: #000;">{{ $match->opponent()->name }}</a></td>
                       <td>{{ $match->opponent()->rating }}</td>
                       <td>{{ $match->starttime }}</td>
-                      @if($match->starttime <= \Carbon\Carbon::now('Asia/Kolkata'))
+                      @if($match->result == -1 && $match->starttime <= \Carbon\Carbon::now('Asia/Kolkata'))
                       <td><a href="/matches/{{$match->id}}" class="btn btn-primary">Play</a></td>
                       @else
-                        <td></td>
+                        @if($match->result == 0)
+                         <td><span class="badge badge-warning">Draw</span></td>
+                        @elseif($match->result == auth()->id()) 
+                        <td><span class="badge badge-success">Won</span></td>
+                        @else
+                          <td><span class="badge badge-danger">Lost</span></td>
+                        @endif
                       @endif
                     </tr>
                    @endforeach
@@ -93,6 +99,7 @@
                         <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
                             <th>Name</th>
                             <th>Rating</th>
+                            <th>Points</th>
                              
                         </tr>
                     </thead>
@@ -105,6 +112,7 @@
     font-weight: 700;">
                       <td><a href="/players/{{$player->id}}" style="color: #000;">{{ $player->name }}</a></td>
                       <td>{{ $player->rating }}</td>
+                      <td>{{ $player->pivot->points }}</td>
                        
                     </tr>
                    @endforeach
