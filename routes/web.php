@@ -12,6 +12,8 @@
 */
 
 Route::get('/', function () {
+	auth()->user()->live_status = 0;
+    auth()->user()->save();
     return view('welcome');
 });
 
@@ -26,5 +28,10 @@ Route::get('/play-friend', 'PlayFriendController@index');
 
 Route::get('/play-friend/{friendId}/{gameId}', 'PlayFriendController@index');
 
+Route::get('/play-random', 'PlayRandomController@index');
+
+Route::post('/play-random/disconnect/{friendId}/{gameId}', 'PlayRandomController@disconnect');
+
+Route::get('/play-random/{friendId}/{gameId}', 'PlayRandomController@index');
 
 Route::post('/user/game/stats', 'StatsController@index');

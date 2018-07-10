@@ -1,58 +1,143 @@
-function engineGame(options) {
+@extends('layouts.app')
 
-    options = options || {}
-    var game = new Chess();
-    var board;
-    var engine = new Worker(options.stockfishjs || '/js/stockfish.js');
-    var engineStatus = {};
-    var displayScore = false;
-    var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
-    var playerColor = 'white';
-    var clockTimeoutID = null;
-    var isEngineRunning = false;
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">Play with Friend <a href="/play-random"  style="margin-left: 15px;" data-target="#con-close-modal" class="btn btn-primary">
+                                      <i class="fa fa-refresh"></i> Start New Game
+                                   </a></div>   
+
+                <div class="card-body">
+                    <div class="row">
+                        <script src="/js/chess.js"></script>
+
+                                            <div class="col-sm-8" style="padding: 14px;">
+
+                                               <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> </p>
+                                               
+                                                
+                                              <div id="board" style="width: 100%;"></div> 
+
+                                               
+                                                <br>
+                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b></p>
+       
+
+                                            <br>
+
+                                            </div>
+
+                                            <div class="col-sm-4" style="margin-top: 55px;" id="puzzle-detail">
+
+                                            <h3>Moves:</h3>
+                                            <div id="game-data">
+                                              </div>
+                                            <hr>
+                                            <p style="color: #fff;font-weight: bold;font-size: 22px;"><strong>Status: </strong><span id="status"></span></p>
+                                            
+                                            <hr>                        
+                                            <p>
+                                             
+                                              <i id="source" data-val="0" hidden="true"></i>
+                                                <i id="dest" data-val="0" hidden="true"></i>
+                                                
+
+                                                
+                                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form >   
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Live Chess</h5>
+       
+      </div>
+      <div class="modal-body">
+         @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+          
+          <div class="loader"></div>
+
+       <h3 class="text-center"><b>Finding an opponent...</b></h3>   
+     
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-secondary" href="/">Cancel</a>
+       
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+@endsection
+
+
+@section('scripts')
+   
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+ 
+
+    <script type="text/javascript">
+      $('.myLink').on('click', function(e) {
+         e.preventDefault();
+        var move = $(this).data('move');
+        goToMove(move);
+    });
+    </script>
+
+    @if(!isset($opponent))
+    <script type="text/javascript">
+      $("#con-close-modal").modal({backdrop: 'static',
+    keyboard: false})
+    </script>
+    @else
+
+    <script type="text/javascript">
+     var board,
+  game = new Chess(),
+  statusEl = $('#status'),
+  fenEl = $('#fen'),
+  pgnEl = $('#pgn');
+  
+
+  var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
+   var clockTimeoutID = null;
     var timeOver = false;
     
-      var statusEl = $('#status');
 
-   
-
-    // do not pick up pieces if the game is over
+   // do not pick up pieces if the game is over
     // only pick up pieces for White
     var onDragStart = function(source, piece, position, orientation) {
-        var re = playerColor == 'white' ? /^b/ : /^w/
+        var turn = '{{ $color == 'white' ? 'w' : 'b' }}';
+       
             if (game.game_over() ||
-                piece.search(re) !== -1) {
+                game.turn() != turn) {
                 return false;
             }
     };
 
-    function uciCmd(cmd) {
-        engine.postMessage(cmd);
-    }
-    uciCmd('uci');
+ 
 
-    function displayStatus() {
-
-
-        var status = '<b>Engine: </b> ';
-        if(!engineStatus.engineLoaded) {
-            status += 'loading...';
-        } else if(!engineStatus.engineReady) {
-            status += 'loaded...';
-        } else {
-            status += 'ready.';
-
-        }
-        status += ' <b>Book: </b>' + engineStatus.book;
-        if(engineStatus.search) {
-            status += '<br><b>' + engineStatus.search + '</b> | ';
-            if(engineStatus.score && displayScore) {
-                status += ' <b>Score: </b>' + engineStatus.score;
-            }
-        }
-        $('#engineStatus').html(status);
-    }
-
+  
     function displayClock(color, t) {
         var isRunning = false;
         if(time.startTime > 0 && color == time.clockColor) {
@@ -153,6 +238,7 @@ function engineGame(options) {
             time.clockColor = 'black';
         }
         time.startTime = Date.now();
+
         clockTick();
     }
 
@@ -238,29 +324,15 @@ function engineGame(options) {
 
 
     function prepareMove() {
-        stopClock();
+        //stopClock();
+         startClock();
         updatePgn();
         board.position(game.fen());
         updateClock();
         var turn = game.turn() == 'w' ? 'white' : 'black';
         if(!game.game_over() && !timeOver) {
             if(turn != playerColor) {
-                var moves = '';
-                var history = game.history({verbose: true});
-                for(var i = 0; i < history.length; ++i) {
-                    var move = history[i];
-                    moves += ' ' + move.from + move.to + (move.promotion ? move.promotion : '');
-                }
-                uciCmd('position startpos moves' + moves);
-
-                if(time.depth) {
-                    uciCmd('go depth ' + time.depth);
-                } else if(time.nodes) {
-                    uciCmd('go nodes ' + time.nodes);
-                } else {
-                    uciCmd('go wtime ' + time.wtime + ' winc ' + time.winc + ' btime ' + time.btime + ' binc ' + time.binc);
-                }
-                isEngineRunning = true;
+                
             }
             if(game.history().length >= 2 && !time.depth && !time.nodes) {
                 startClock();
@@ -341,98 +413,96 @@ function engineGame(options) {
         }
     }
 
-    engine.onmessage = function(event) {
-        var line = event.data;
-        if(line == 'uciok') {
-            engineStatus.engineLoaded = true;
-        } else if(line == 'readyok') {
-            engineStatus.engineReady = true;
-        } else {
-            var match = line.match(/^bestmove ([a-h][1-8])([a-h][1-8])([qrbk])?/);
-            if(match) {
-                isEngineRunning = false;
-               var move =  game.move({from: match[1], to: match[2], promotion: match[3]});
-                 $('#board .square-55d63').css('background', '');
 
-                var background = '#a9a9a9';
-              if ($('#board .square-' + move.to).hasClass('black-3c85d') === true) {
-                background = '#696969';
-              }
-               $('#board .square-' + move.to).css('background', background);
 
-               var background = '#a9a9a9';
-              if ($('#board .square-' + move.from).hasClass('black-3c85d') === true) {
-                background = '#696969';
-              }
-               $('#board .square-' + move.from).css('background', background);
-                playAudio();
-                prepareMove();
-            } else if(match = line.match(/^info .*\bdepth (\d+) .*\bnps (\d+)/)) {
-                engineStatus.search = 'Depth: ' + match[1] + ' Nps: ' + match[2];
-            }
-            if(match = line.match(/^info .*\bscore (\w+) (-?\d+)/)) {
-                var score = parseInt(match[2]) * (game.turn() == 'w' ? 1 : -1);
-                if(match[1] == 'cp') {
-                    engineStatus.score = (score / 100.0).toFixed(2);
-                } else if(match[1] == 'mate') {
-                    engineStatus.score = '#' + score;
-                }
-                if(match = line.match(/\b(upper|lower)bound\b/)) {
-                    engineStatus.score = ((match[1] == 'upper') == (game.turn() == 'w') ? '<= ' : '>= ') + engineStatus.score
-                }
-            }
-        }
-        displayStatus();
-    };
-    
+
+var onDrop = function(source, target) {
+  // see if the move is legal
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+  });
+
+  // illegal move
+  if (move === null) return 'snapback';
+
+  handleMove(source, target);
+
+  updateStatus();
+};
+
+// update the board position after the piece snap 
+// for castling, en passant, pawn promotion
+var onSnapEnd = function() {
+  board.position(game.fen());
+};
+
+var updateStatus = function() {
+  var status = '';
+
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+
+  // checkmate?
+  if (game.in_checkmate() === true) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  }
+
+  // draw?
+  else if (game.in_draw() === true) {
+    status = 'Game over, drawn position';
+  }
+
+  // game still on
+  else {
+    status = moveColor + ' to move';
+
+    // check?
+    if (game.in_check() === true) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+
+  statusEl.html(status);
+  fenEl.html(game.fen());
+  pgnEl.html(game.pgn());
+
+};
+
 
 var playAudio = function() {
     var audio = new Audio('../audio/mov.wav');
     audio.play();
 };
 
-   
 
-   
-
-    var cfg = {
+var cfg = {
         draggable: false,
         /*boardTheme: "symbol_board_theme,*/
-         pieceTheme: chess24_piece_theme ,
         position: 'start',
-
+        pieceTheme: 'https://chessvicky.com/admin/img/chesspieces/wikipedia/{piece}.png',
+        onDragStart: onDragStart,
+        onDrop: onDrop,
+        onSnapEnd: onSnapEnd,
+         orientation: '{{ $color }}',
        
     };
 
-    if(options.book) {
-        var bookRequest = new XMLHttpRequest();
-        bookRequest.open('GET', options.book, true);
-        bookRequest.responseType = "arraybuffer";
-        bookRequest.onload = function(event) {
-            if(bookRequest.status == 200) {
-                engine.postMessage({book: bookRequest.response});
-                engineStatus.book = 'ready.';
-                displayStatus();
-            } else {
-                engineStatus.book = 'failed!';
-                displayStatus();
-            }
-        };
-        bookRequest.send(null);
-    } else {
-        engineStatus.book = 'none';
-    }
 
-    board = new ChessBoard('board', cfg);
-
+board = ChessBoard('board', cfg);
 
 function clickOnSquare(evt) {
+
+  stopClock()
   
-   if (game.game_over() || timeOver) {
+   if (game.game_over() ) {
                 return false;
             }
     var turn = game.turn() == 'w' ? 'white' : 'black';
-    if(turn == playerColor)        
+    if(turn == '{{ $color }}')        
    {
             var square = $(this).data("square");
              var squareEl = $('#board .square-' + square);
@@ -479,7 +549,9 @@ function clickOnSquare(evt) {
                     }
                      $('#board .square-' + source).css('background', background);
                
-                prepareMove();
+               handleMove(source.toString(), destination.toString());
+               startClock();
+                updateStatus();
                
                 
             } else {
@@ -494,7 +566,7 @@ function clickOnSquare(evt) {
 
             
             
-            
+            updateStatus();
              
             console.log("You clicked on square: " + square);
       }
@@ -502,58 +574,226 @@ function clickOnSquare(evt) {
 
 $("#board").on("click", ".square-55d63", clickOnSquare);
 
-    return {
-        reset: function() {
-            game.reset();
-            uciCmd('setoption name Contempt Factor value 0');
-            uciCmd('setoption name Skill Level value 20');
-            uciCmd('setoption name Aggressiveness value 100');
-        },
-        loadPgn: function(pgn) { game.load_pgn(pgn); },
-        setPlayerColor: function(color) {
-            playerColor = color;
-            board.orientation(playerColor);
-        },
-        setSkillLevel: function(skill) {
-            uciCmd('setoption name Skill Level value ' + skill);
-        },
-        setTime: function(baseTime, inc) {
-            time = { wtime: baseTime * 1000, btime: baseTime * 1000, winc: inc * 1000, binc: inc * 1000 };
-        },
-        setDepth: function(depth) {
-            time = { depth: depth };
-        },
-        setNodes: function(nodes) {
-            time = { nodes: nodes };
-        },
-        setContempt: function(contempt) {
-            uciCmd('setoption name Contempt Factor value ' + contempt);
-        },
-        setAggressiveness: function(value) {
-            uciCmd('setoption name Aggressiveness value ' + value);
-        },
-        setDisplayScore: function(flag) {
-            displayScore = flag;
-            displayStatus();
-        },
-        start: function() {
-            uciCmd('ucinewgame');
-            uciCmd('isready');
-            engineStatus.engineReady = false;
-            engineStatus.search = null;
-            timeOver = false;
-            displayStatus();
-            prepareMove();
-        },
-        undo: function() {
-            if(isEngineRunning)
-                return false;
-            game.undo();
-            game.undo();
-            engineStatus.search = null;
-            displayStatus();
-            prepareMove();
-            return true;
-        }
+updateStatus();
+
+  // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+  var config = {
+    apiKey: "AIzaSyBl2wpX0f-Rl0aCMcD2kJceLWlm9P7JqHM",
+    authDomain: "chessfull-f48d6.firebaseapp.com",
+    databaseURL: "https://chessfull-f48d6.firebaseio.com/",
+    projectId: "chessfull-f48d6",
     };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
+   var $refId = {{ $refId }};
+
+   var gameRef = firebase.database().ref('games/' + $refId + '/moves');
+   gameRef.set(null);
+
+  function handleMove(from, to) {
+    firebase.database().ref('games/' + $refId + '/moves').push({
+       from : from,
+       to: to,
+    });
+
+    updateStatus();
+  }
+
+
+
+  window.onbeforeunload = function (e) {
+
+     $.ajax({
+              type: "POST",
+              url: '/play-random/disconnect/{{$friendId}}/{{$gameId}}',
+              data: '',
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+                     console.log('disconnected');
+              }
+              });
+  
+      console.log('triggered');
+      var $refId = {{ $roomId }};
+      var gameRef = firebase.database().ref('random-start/' + '{{ $roomId }}' );
+      gameRef.set(null);
+      var gameRef = firebase.database().ref('random-opponent/' + {{$friendId }} );
+      gameRef.set(null);
+
+      var gameRef = firebase.database().ref('random-opponent/' + {{ $gameId }} );
+      gameRef.set(null);
+    };
+
+
+  
+
+    var gameStartRef = firebase.database().ref('random-start/' + '{{ $roomId }}');
+        gameStartRef.on('value', function(snapshot){
+         var val = snapshot.val();
+
+         if(val == null)
+         {
+            window.location = '/play-random';
+         }
+    });
+    
+
+    var gameRef = firebase.database().ref('games/' + $refId + '/moves');
+    gameRef.on('child_added', function(snapshot) {
+        
+        console.log(snapshot.val());
+        
+        source = snapshot.val().from;
+        
+        target = snapshot.val().to;
+
+        var move = game.move({
+          from: source,
+          to: target,
+        });
+        
+        board.position(game.fen());
+
+         $('#board .square-55d63').css('background', '');
+
+                var background = '#a9a9a9';
+              if ($('#board .square-' + move.to).hasClass('black-3c85d') === true) {
+                background = '#696969';
+              }
+               $('#board .square-' + move.to).css('background', background);
+
+               var background = '#a9a9a9';
+              if ($('#board .square-' + move.from).hasClass('black-3c85d') === true) {
+                background = '#696969';
+              }
+               $('#board .square-' + move.from).css('background', background);
+                playAudio();
+
+        updateStatus();
+    });
+
+
+    
+
+
+
+    </script>
+
+    @endif 
+
+
+    <script type="text/javascript">
+
+
+      @if(!isset($opponent))
+       // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+  var config = {
+    apiKey: "AIzaSyBl2wpX0f-Rl0aCMcD2kJceLWlm9P7JqHM",
+    authDomain: "chessfull-f48d6.firebaseapp.com",
+    databaseURL: "https://chessfull-f48d6.firebaseio.com/",
+    projectId: "chessfull-f48d6",
+    };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
+    var gameStartRef = firebase.database().ref('random-opponent/' + {{ auth()->id() * 123 }});
+        gameStartRef.on('value', function(snapshot){
+           var val = snapshot.val();
+
+         if(val != null)
+         {
+            var fId = {{ auth()->id() * 123 }};
+            var gId = val;
+
+            var friendId = Math.max(fId, gId);
+            var gameId = Math.min(fId, gId);
+
+            var refId = friendId + '-' + gameId;
+
+            var gameRef = firebase.database().ref('games/' + refId);
+            gameRef.set(null);
+
+            window.location = '/play-random/' + friendId + '/' + gameId;
+         }
+    });
+
+  
+  setTimeout(function(){
+    console.log('connecting..');
+    var fId = {{ $friendId  }};
+    var gId = {{ $gameId }};
+
+  
+ 
+      if(fId != 0)
+      {
+
+          var aid = {{ auth()->id() * 123 }};
+
+    var friendId = Math.max(fId, gId);
+    var gameId = Math.min(fId, gId);
+
+    var refId = friendId + '-' + gameId;
+
+    var opponentId =  aid ==  friendId ? gameId : friendId;
+
+    console.log(friendId);
+      
+        var gameRef = firebase.database().ref('games/' + refId);
+        gameRef.set(null);
+
+        var gameStartRef = firebase.database().ref('random-start/' + refId );
+        gameStartRef.set(gameId);
+
+        var gameStartRef = firebase.database().ref('random-opponent/' + opponentId );
+        gameStartRef.set(aid);
+
+        window.location = '/play-random/' + friendId + '/' + gameId;
+
+      } else {
+
+      }
+  }, 3000 );
+
+
+
+  @endif
+
+  
+
+
+
+      playGame = function() {
+  var friendId = $('#friendId').val();
+  var gameId = $('#gameId').val();
+
+  var refId = friendId + '-' + gameId;
+
+  console.log(friendId);
+
+  if(gameId != '')
+  {
+    var gameRef = firebase.database().ref('games/' + refId);
+    gameRef.set(null);
+    var gameStartRef = firebase.database().ref('random-start/' + friendId );
+    gameStartRef.set(gameId);
+    window.location = '/play-random/' + friendId + '/' + gameId;
+  } else {
+
+  }
 }
+
+
+
+    </script>
+
+
+  
+@stop

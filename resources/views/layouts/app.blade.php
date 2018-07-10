@@ -112,6 +112,7 @@
      
     <script src="/js/jquery-plugin-collection.js"></script>
     <script src="/js/chessboard.js"></script>
+     <script src="/js/chessboardjs-themes.js"></script>
     @yield('scripts')
 
 </body>
