@@ -299,7 +299,7 @@ function engineGame(options) {
                    if(isConfirm) {
                     window.location.href = "/play-computer";
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                    }  
                 });
         } else {
@@ -333,7 +333,7 @@ function engineGame(options) {
                     if(isConfirm) {
                     window.location.href = "/play-computer";
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                    }  
                 }); 
              

@@ -65,6 +65,8 @@
                       <td>{{ $match->starttime }}</td>
                       @if($match->starttime <= \Carbon\Carbon::now('Asia/Kolkata'))
                       <td><a href="/matches/{{$match->id}}" class="btn btn-primary">Play</a></td>
+                      @else
+                        <td></td>
                       @endif
                     </tr>
                    @endforeach
