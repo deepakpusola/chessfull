@@ -54,7 +54,7 @@
                         <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
                             <th>Name</th>
                             <th>Players</th>
-                            <th>Started at</th>
+                            <th>Starts at</th>
                              <th></th>
                         </tr>
                     </thead>

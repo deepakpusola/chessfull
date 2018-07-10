@@ -46,25 +46,39 @@ class TournamentsController extends Controller
 
 		$players = $tournament->players->toArray();
 
-	
-
 		$tournament->matches()->delete();
 
 		if(count($tournament->players) >= 2)
 		{
-				// Pair the adjacent teams
-			for ( $index = 0; $index < $number_of_teams; $index +=2) {
 
-				// Pair $teams[$index ] with $teams[$index +1]
+			  $pairs = array_chunk($players, 2);
 
 
-			    $tournament->matches()->create(['player_1' => $players[$index]['id'], 
-			    	                            'player_2' => $players[$index+1]['id'],
+			  foreach ($pairs as $key => $pair) {
+			  	
+			  	 if(count($pair) > 1)
+			  	 {
+
+			  		  $tournament->matches()->create(['player_1' => $pair[0]['id'], 
+			    	                            'player_2' => $pair[1]['id'],
 			    	                            'starttime'=> $tournament->starttime]);
+			  	 } else {
+			  	 	$minutes_to_add = 15;
 
+					$time = new \DateTime($tournament->starttime);
+					$time->add(new \DateInterval('PT' . $minutes_to_add . 'M'));
 
-			   
-			}
+					$stamp = $time->format('Y-m-d H:i');
+
+			  	 	$tournament->matches()->create(['player_1' => $pair[0]['id'], 
+			    	                            'player_2' => $players[0]['id'],
+			    	                            'starttime'=> $stamp]);
+			  	 }
+			  	}	
+				
+			  
+			
+			
 		}
 
 	
