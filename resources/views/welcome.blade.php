@@ -117,7 +117,7 @@
                     <a href="/play-computer">Play with Computer</a>
                     <a href="/play-friend">Play with Friend</a>
                     <a href="/play-random">Live Game</a>
-                    <a href="/tournamanets">Tournaments</a>
+                    <a href="/tournaments">Tournaments</a>
                 </div>
             </div>
         </div>

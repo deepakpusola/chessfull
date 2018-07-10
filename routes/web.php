@@ -39,3 +39,13 @@ Route::post('/play-random/disconnect/{friendId}/{gameId}', 'PlayRandomController
 Route::get('/play-random/{friendId}/{gameId}', 'PlayRandomController@index');
 
 Route::post('/user/game/stats', 'StatsController@index');
+
+
+Route::get('/tournaments', 'TournamentsController@index');
+
+
+Route::get('/tournaments/{tournament}', 'TournamentsController@show');
+
+Route::get('/tournaments/{tournament}/join', 'TournamentsController@join');
+
+

@@ -461,6 +461,79 @@ var updateStatus = function() {
   // checkmate?
   if (game.in_checkmate() === true) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
+
+    if(moveColor != {{ $color }})
+    {
+    var dataString = 'operation=increment' + '&points='+250;
+  
+              $.ajax({
+              type: "POST",
+              url: '/user/game/stats/',
+              data: dataString,
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+                    
+              }
+              });
+
+              swal({
+                  title: "You Win!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>You win the game and gain <b>250</b> skillometer points!</span>",
+                  type: "success",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Play Again!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                    if(isConfirm) {
+                    window.location.href = "/play-random";
+                   } else {
+                    window.location.href = "/home";
+                   }  
+                }); 
+    } else {
+        var dataString = 'operation=decrement' + '&points='+150;
+  
+              $.ajax({
+              type: "POST",
+              url: '/user/game/stats/',
+              data: dataString,
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+                  console.log("LOST");
+                         
+  
+              }
+              });
+
+              swal({
+                  title: "Check And Mate!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>You lose the game and lost <b>150</b> skillometer points!</span>",
+                  type: "error",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Play Again!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/play-random";
+                   } else {
+                    window.location.href = "/home";
+                   }  
+                });
+    }
   }
 
   // draw?
