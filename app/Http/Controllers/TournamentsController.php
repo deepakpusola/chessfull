@@ -38,7 +38,7 @@ class TournamentsController extends Controller
         $playerMatches = [];
 
         foreach ($matches as $key => $match) {
-            if($match->player1 == auth()->id() || $match->player2 == auth()->id())
+            if($match->player1->id == auth()->id() || $match->player2->id == auth()->id())
             {
                 $playerMatches[] = $match;
             }
