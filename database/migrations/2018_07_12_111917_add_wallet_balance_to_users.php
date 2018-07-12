@@ -26,7 +26,7 @@ class AddWalletBalanceToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('wallet_balance');
+        $table->dropColumn('wallet_balance');
         });
     }
 }
