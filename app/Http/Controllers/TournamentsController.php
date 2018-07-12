@@ -33,7 +33,7 @@ class TournamentsController extends Controller
     public function show(Tournament $tournament)
     {
         
-    	$tournament->is_live = $tournament->starttime <= \Carbon\Carbon::now('Asia/Kolkata');
+    	$tournament->is_live = $tournament->starttime <= \Carbon\Carbon::now('Asia/Kolkata') && !$tournament->closed;
     	$matches = $tournament->matches;
 
         $playerMatches = [];
