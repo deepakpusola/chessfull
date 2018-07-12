@@ -141,9 +141,18 @@ class TournamentsController extends Controller
             ->where('user_id', auth()->id())
             ->increment('points', 1);
 
-            \DB::table('tournament_user')
-            ->where('user_id', $opponent->id)
-            ->decrement('points', 1);    
+            $lost = \DB::table('tournament_user')
+            ->where('user_id', $opponent->id)->get();
+            if($lost->points > 0)
+            {
+                \DB::table('tournament_user')
+                ->where('user_id', $opponent->id)
+                ->decrement('points', 1); 
+            } else {
+
+            }
+
+               
 
 
     	} elseif($status == 'lose')
@@ -157,11 +166,11 @@ class TournamentsController extends Controller
 
              \DB::table('tournament_user')
             ->where('user_id', auth()->id())
-            ->increment('points', 1);
+            ->increment('points', 0.5);
 
             \DB::table('tournament_user')
             ->where('user_id', $opponent->id)
-            ->increment('points', 1);    
+            ->increment('points', 0.5);    
 
     	} 
 

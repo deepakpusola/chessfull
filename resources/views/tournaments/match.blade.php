@@ -170,6 +170,43 @@
           console.log(t);
          if(t <= 0 && time.clockColor == 'white')
             {
+
+              if(playerColor == 'white')
+              {
+                var dataString = '';
+  
+              $.ajax({
+                    type: "POST",
+                    url: '/matches/' + '{{ $match->id }}' + '/lose',
+                    data: dataString,
+                    cache: false,
+                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+                    success: function(html, window)
+                    { 
+                   
+                    }
+                    });
+
+              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+              gameRef.set({{$opponent->id}});
+            } else {
+               var dataString = '';
+  
+              $.ajax({
+                    type: "POST",
+                    url: '/matches/' + '{{ $match->id }}' + '/won',
+                    data: dataString,
+                    cache: false,
+                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+                    success: function(html, window)
+                    { 
+                   
+                    }
+                    });
+
+                var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+                gameRef.set({{auth()->id()}});
+            }
                 timeOver = true;
                  swal({
                   title: "Oops!",
@@ -182,12 +219,49 @@
                 },
                 function(isConfirm){
                    if(isConfirm) {
-                    window.location.href = "/play-computer";
+                    window.location.href = "/play-friend";
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                    }  
                 }); 
             } else if(t <= 0 && time.clockColor == 'black') {
+
+               if(playerColor == 'black')
+              {
+                var dataString = '';
+  
+              $.ajax({
+                    type: "POST",
+                    url: '/matches/' + '{{ $match->id }}' + '/lose',
+                    data: dataString,
+                    cache: false,
+                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+                    success: function(html, window)
+                    { 
+                   
+                    }
+                    });
+
+              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+              gameRef.set({{$opponent->id}});
+            } else {
+               var dataString = '';
+  
+              $.ajax({
+                    type: "POST",
+                    url: '/matches/' + '{{ $match->id }}' + '/won',
+                    data: dataString,
+                    cache: false,
+                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+                    success: function(html, window)
+                    { 
+                   
+                    }
+                    });
+
+                var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+                gameRef.set({{auth()->id()}});
+            }
                 timeOver = true;
                 swal({
                   title: "Oops!",
@@ -200,9 +274,9 @@
                 },
                 function(isConfirm){
                    if(isConfirm) {
-                    window.location.href = "/play-computer";
+                    window.location.href = "/play-friend";
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                    }  
                 }); 
             } else {
@@ -749,6 +823,8 @@ updateStatus();
     var $refId = {{ $match->id }};
     var gameRef = firebase.database().ref('matches/' + $refId + '/moves');
     gameRef.on('child_added', function(snapshot) {
+         
+        stopClock(); 
         
         console.log(snapshot.val());
         
