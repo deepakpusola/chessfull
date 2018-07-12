@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Tournament;
 use App\Models\Match;
 use Illuminate\Http\Request;
