@@ -326,7 +326,7 @@
 
 
     function prepareMove() {
-        //stopClock();
+        stopClock();
          startClock();
         updatePgn();
         board.position(game.fen());
@@ -625,7 +625,7 @@ function clickOnSquare(evt) {
                      $('#board .square-' + source).css('background', background);
                
                handleMove(source.toString(), destination.toString());
-               startClock();
+              updateClock();
                 updateStatus();
                
                 
