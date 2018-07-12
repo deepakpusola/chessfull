@@ -58,7 +58,7 @@ class TournamentsController extends Controller
                      }        
         }
     	
-        return view('tournaments.show', compact('tournament', 'matches'));
+        return view('tournaments.show', compact('tournament', 'matches', 'winners'));
     }
 
     public function join(Tournament $tournament)
