@@ -20,10 +20,12 @@
                   
                     <br>
 
-                    @if(!auth()->user()->isEnrolled($tournament))
+                    @if(!auth()->user()->isEnrolled($tournament) && !$tournament->closed)
                      <a href="/tournaments/{{$tournament->id}}/join" class="btn btn-primary btn-lg" style="width: 100%;">Join</a>
-                    @else
+                    @elseif(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
                        <a href="#" class="btn btn-primary btn-lg disabled" style="width: 100%;">Enrolled</a>
+                    @else
+                        <a href="#" class="btn btn-danger btn-lg disabled" style="width: 100%;">Closed</a> 
                     @endif
                     
                 </div>
