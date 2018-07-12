@@ -182,9 +182,9 @@
                 },
                 function(isConfirm){
                    if(isConfirm) {
-                    window.location.href = "/play-computer";
+                    window.location.href = "/play-random";
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                    }  
                 }); 
             } else if(t <= 0 && time.clockColor == 'black') {
@@ -200,9 +200,9 @@
                 },
                 function(isConfirm){
                    if(isConfirm) {
-                    window.location.href = "/play-computer";
+                    window.location.href = "/play-random";
                    } else {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                    }  
                 }); 
             } else {
@@ -549,7 +549,7 @@ var updateStatus = function() {
 
 
 var playAudio = function() {
-    var audio = new Audio('../audio/mov.wav');
+    var audio = new Audio('/audio/mov.wav');
     audio.play();
 };
 
@@ -624,8 +624,10 @@ function clickOnSquare(evt) {
                     }
                      $('#board .square-' + source).css('background', background);
                
-               handleMove(source.toString(), destination.toString());
-              updateClock();
+               handleMove(source, destination);
+                updateClock();
+               // startClock();
+                updatePgn();
                 updateStatus();
                
                 
@@ -721,6 +723,8 @@ updateStatus();
     var gameRef = firebase.database().ref('games/' + $refId + '/moves');
     gameRef.on('child_added', function(snapshot) {
         
+        stopClock();
+
         console.log(snapshot.val());
         
         source = snapshot.val().from;
@@ -731,23 +735,31 @@ updateStatus();
           from: source,
           to: target,
         });
+
+
         
         board.position(game.fen());
 
          $('#board .square-55d63').css('background', '');
 
                 var background = '#a9a9a9';
-              if ($('#board .square-' + move.to).hasClass('black-3c85d') === true) {
+              if ($('#board .square-' + target).hasClass('black-3c85d') === true) {
                 background = '#696969';
               }
-               $('#board .square-' + move.to).css('background', background);
+               $('#board .square-' + target).css('background', background);
 
                var background = '#a9a9a9';
-              if ($('#board .square-' + move.from).hasClass('black-3c85d') === true) {
+              if ($('#board .square-' + source).hasClass('black-3c85d') === true) {
                 background = '#696969';
               }
-               $('#board .square-' + move.from).css('background', background);
+               $('#board .square-' + source).css('background', background);
                 playAudio();
+
+                updateClock();       
+
+         startClock();
+
+         updatePgn();
 
         updateStatus();
     });
