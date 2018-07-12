@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
                       $tournament->closed = 1;
 
                       $winners = \DB::table('tournament_user')->where('tournament_id', $tournament->id)->select('id', 'user_id')
-                     ->orderBy('points')->limit(3)->get();
+                     ->orderBy('points', 'DESC')->limit(3)->get();
 
                       $tournament->first_prize_winner = isset($winners[0]) ? $winners[0]->user_id : 0; 
                       $tournament->second_prize_winner = isset($winners[1]) ? $winners[1]->user_id : 0;   
