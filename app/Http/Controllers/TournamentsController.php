@@ -21,11 +21,13 @@ class TournamentsController extends Controller
 
     public function index()
     {
-    	$live = Tournament::where('starttime', '<=', \Carbon\Carbon::now('Asia/Kolkata'))->get();
+    	$live = Tournament::where('starttime', '<=', \Carbon\Carbon::now('Asia/Kolkata'))->where('closed', 0)->get();
 
-    	$upcoming = Tournament::where('starttime', '>', \Carbon\Carbon::now('Asia/Kolkata'))->get();
+    	$upcoming = Tournament::where('starttime', '>', \Carbon\Carbon::now('Asia/Kolkata'))->where('closed', 0)->get();
 
-    	return view('tournaments.index', compact('live', 'upcoming'));
+        $closed = Tournament::where('closed', 1)->get();
+
+    	return view('tournaments.index', compact('live', 'upcoming', 'closed'));
     }
 
 
