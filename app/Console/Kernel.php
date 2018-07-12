@@ -26,6 +26,48 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->call(function () {
+            $live = Tournament::where('starttime', '<=', \Carbon\Carbon::now('Asia/Kolkata'))->get();
+            foreach ($live as $key => $tournament) {
+                if($tournament->endtime == \Carbon\Carbon::now('Asia/Kolkata'))
+                {
+                      $tournament->closed = 1;
+
+                      $winners = \DB::table('tournament_user')->select('id', 'user_id')
+                     ->orderBy('points')->limit(3)->get();
+
+                      $tournament->first_prize_winner = isset($winners[0]) ? $winners[0]['user_id'] : 0; 
+                      $tournament->second_prize_winner = isset($winners[1]) ? $winners[1]['user_id'] : 0;   
+                      $tournament->third_prize_winner = isset($winners[1]) ? $winners[2]['user_id'] : 0;  
+
+                      $tournament->save();
+
+                      if($tournament->first_prize_winner)
+                      {
+                           $user = User::find($tournament->first_prize_winner);
+                           $user->wallet_balance += $tournament->first_prize;
+                           $user->save(); 
+                      }
+
+                      if($tournament->second_prize_winner)
+                      {
+                          $user = User::find($tournament->second_prize_winner);
+                          $user->wallet_balance += $tournament->second_prize; 
+                          $user->save();
+                      }
+
+                      if($tournament->third_prize_winner)
+                      {
+                          $user = User::find($tournament->third_prize_winner);
+                          $user->wallet_balance += $tournament->third_prize;
+                          $user->save(); 
+                      }
+                     
+                      // notify winners 
+                }
+            }
+        })->everyMinute();
     }
 
     /**

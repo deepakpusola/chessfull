@@ -14,6 +14,7 @@
                             <th>Name</th>
                             <th>Players</th>
                             <th>Started at</th>
+                             <th>Ends at</th>
                              <th></th>
                         </tr>
                     </thead>
@@ -27,6 +28,7 @@
                       <td><a href="/tournaments/{{$tournament->id}}" style="color: #000;">{{ $tournament->name }}</a></td>
                        <td>{{ count($tournament->players) }}</td>
                         <td>{{ $tournament->starttime }}</td>
+                        <td>{{ $tournament->endtime }}</td>
                         <td><a href="/tournaments/{{$tournament->id}}" class="btn btn-primary">View</a></td>
                     </tr>
                    @endforeach
@@ -55,6 +57,7 @@
                             <th>Name</th>
                             <th>Players</th>
                             <th>Starts at</th>
+                            <th>Ends at</th>
                              <th></th>
                         </tr>
                     </thead>
@@ -68,6 +71,7 @@
                       <td><a href="/tournaments/{{$tournament->id}}" style="color: #000;">{{ $tournament->name }}</a></td>
                        <td>{{ count($tournament->players) }}</td>
                         <td>{{ $tournament->starttime }}</td>
+                        <td>{{ $tournament->endtime }}</td>
                         <td><a href="/tournaments/{{$tournament->id}}" class="btn btn-primary">View</a></td>
                     </tr>
                    @endforeach

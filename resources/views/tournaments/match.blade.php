@@ -15,14 +15,14 @@
 
                                             <div class="col-sm-8" style="padding: 14px;">
 
-                                               <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> </p>
+                                               <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
                                                
                                                 
                                               <div id="board" style="width: 100%;"></div> 
 
                                                
                                                 <br>
-                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b></p>
+                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class="text-primary" id="time2">0:05:00</span>)</p>
        
 
                                             <br>
@@ -122,6 +122,8 @@
   var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
    var clockTimeoutID = null;
     var timeOver = false;
+
+    var playerColor = '{{ $color }}';
     
 
    // do not pick up pieces if the game is over
@@ -441,16 +443,16 @@ var onSnapEnd = function() {
 var updateStatus = function() {
   var status = '';
 
-  var moveColor = 'White';
+  var moveColor = 'white';
   if (game.turn() === 'b') {
-    moveColor = 'Black';
+    moveColor = 'black';
   }
 
   // checkmate?
   if (game.in_checkmate() === true) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
 
-    if(moveColor != {{ $color }})
+    if(moveColor != '{{ $color }}')
     {
         var dataString = '';
   
@@ -588,7 +590,7 @@ var updateStatus = function() {
 
 
 var playAudio = function() {
-    var audio = new Audio('../audio/mov.wav');
+    var audio = new Audio('/audio/mov.wav');
     audio.play();
 };
 
@@ -610,7 +612,7 @@ board = ChessBoard('board', cfg);
 
 function clickOnSquare(evt) {
 
-  stopClock()
+  stopClock();
   
    if (game.game_over() ) {
                 return false;
@@ -664,8 +666,13 @@ function clickOnSquare(evt) {
                      $('#board .square-' + source).css('background', background);
                
                handleMove(source.toString(), destination.toString());
-               startClock();
-                updateStatus();
+              updateClock();       
+
+         //startClock();
+
+         updatePgn();
+
+        updateStatus();
                
                 
             } else {
@@ -759,19 +766,26 @@ updateStatus();
          $('#board .square-55d63').css('background', '');
 
                 var background = '#a9a9a9';
-              if ($('#board .square-' + move.to).hasClass('black-3c85d') === true) {
+              if ($('#board .square-' + target).hasClass('black-3c85d') === true) {
                 background = '#696969';
               }
-               $('#board .square-' + move.to).css('background', background);
+               $('#board .square-' + target).css('background', background);
 
                var background = '#a9a9a9';
-              if ($('#board .square-' + move.from).hasClass('black-3c85d') === true) {
+              if ($('#board .square-' + source).hasClass('black-3c85d') === true) {
                 background = '#696969';
               }
-               $('#board .square-' + move.from).css('background', background);
+               $('#board .square-' + source).css('background', background);
                 playAudio();
+          
+          updateClock();       
 
-        updateStatus();
+          startClock();
+
+          updatePgn();
+
+          updateStatus();
+
     });
 
 var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{$opponent->id}}');
@@ -837,6 +851,10 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
 
 
         <script type="text/javascript">
+
+
+        
+
           // Initialize Firebase
   // TODO: Replace with your project's customized code snippet
    var config = {
@@ -853,6 +871,48 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
 
    var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
    gameRef.set(1);
+
+
+   setTimeout(function(){
+
+         var dataString = '';
+  
+              $.ajax({
+              type: "POST",
+              url: '/matches/' + '{{ $match->id }}' + '/won',
+              data: dataString,
+              cache: false,
+              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+              success: function(html, window)
+              { 
+                  //window.location = '/tournaments/' + '{{ $match->tournament_id }}';
+              }
+              });
+
+              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+              gameRef.set({{auth()->id()}});
+
+          swal({
+                  title: "You won this match!",
+                  html: true,
+                  text: "<span style='color:#0a0a0a;font-weight:400'>Oppenent didn't show! You have won this match!</span>",
+                  type: "success",
+                  showCancelButton: true,
+                  confirmButtonColor: "#0048bc",
+                  confirmButtonText: "Go to Tournament!",
+                  cancelButtonText: "Go Home!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false,
+                },
+                function(isConfirm){
+                   if(isConfirm) {
+                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                   } else {
+                    window.location.href = "/";
+                   }  
+                });
+
+        }, 20000);
 
     var gameStartRef = firebase.database().ref('matches/' + $refId + '/result/');
         gameStartRef.on('value', function(snapshot){
