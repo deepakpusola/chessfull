@@ -15,14 +15,14 @@
 
                                             <div class="col-sm-8" style="padding: 14px;">
 
-                                               <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> </p>
+                                               <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }} </b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
                                                
                                                 
                                               <div id="board" style="width: 100%;"></div> 
 
                                                
                                                 <br>
-                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b></p>
+                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class="text-primary" id="time2">0:05:00</span>)</p>
        
 
                                             <br>
@@ -134,6 +134,8 @@
   var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
    var clockTimeoutID = null;
     var timeOver = false;
+
+     var playerColor = '{{ $color }}';
     
 
    // do not pick up pieces if the game is over
@@ -453,16 +455,16 @@ var onSnapEnd = function() {
 var updateStatus = function() {
   var status = '';
 
-  var moveColor = 'White';
+  var moveColor = 'white';
   if (game.turn() === 'b') {
-    moveColor = 'Black';
+    moveColor = 'black';
   }
 
   // checkmate?
   if (game.in_checkmate() === true) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
 
-    if(moveColor != {{ $color }})
+    if(moveColor != '{{ $color }}')
     {
     var dataString = 'operation=increment' + '&points='+250;
   
