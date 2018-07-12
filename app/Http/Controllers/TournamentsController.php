@@ -50,7 +50,7 @@ class TournamentsController extends Controller
         $winners = [];
         if($tournament->closed)
         {
-             $winners = \DB::table('tournament_user')->where('tournament_id', $tournament->id)->select('id', 'user_id')
+             $winners = \DB::table('tournament_user')->where('tournament_id', $tournament->id)
                      ->orderBy('points')->limit(3)->get();
 
              foreach ($winners as $key => $winner) {
