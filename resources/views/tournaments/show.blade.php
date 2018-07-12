@@ -34,7 +34,7 @@
 
           @if($tournament->is_live)
             
-            <p class="badge badge-warning" style="font-size: 22px;">Ends in : <span id="endtimer"></span></p>
+            <p class="badge badge-warning" style="font-size: 22px;">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
 
           @endif
 
@@ -110,7 +110,7 @@
                             <th>Player Name</th>
                             <th>Rating</th>
                             <th>Points</th>
-                            <th></th>
+                            
                              
                         </tr>
                     </thead>

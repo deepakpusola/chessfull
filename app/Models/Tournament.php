@@ -28,7 +28,7 @@ class Tournament extends Model
 
     public function players()
     {
-        return $this->belongsToMany(User::class)->withPivot('points');
+        return $this->belongsToMany(User::class)->orderBy('points', 'DESC')->withPivot('points');
     }
 
 
