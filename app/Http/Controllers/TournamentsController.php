@@ -34,7 +34,8 @@ class TournamentsController extends Controller
         
     	$tournament->is_live = $tournament->starttime <= \Carbon\Carbon::now('Asia/Kolkata');
     	$matches = $tournament->matches()->where('player_1', auth()->id())->orWhere('player_2', auth()->id())->get();
-    	return view('tournaments.show', compact('tournament', 'matches'));
+    	dd($matches);
+        return view('tournaments.show', compact('tournament', 'matches'));
     }
 
     public function join(Tournament $tournament)
