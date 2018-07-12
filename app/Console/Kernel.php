@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
 
                       $tournament->first_prize_winner = isset($winners[0]) ? $winners[0]->user_id : 0; 
                       $tournament->second_prize_winner = isset($winners[1]) ? $winners[1]->user_id : 0;   
-                      $tournament->third_prize_winner = isset($winners[1]) ? $winners[2]->user_id : 0;  
+                      $tournament->third_prize_winner = isset($winners[2]) ? $winners[2]->user_id : 0;  
 
                       $tournament->save();
 
