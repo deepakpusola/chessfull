@@ -121,9 +121,9 @@
                     color: #000;
                     font-size: 22px;
                     font-weight: 700;">
-                      <td><a href="/players/{{$player->user->id}}" style="color: #000;">{{ $player->user->name }}</a></td>
-                      <td>{{ $player->user->rating }}</td>
-                      <td>{{ $player->points }}</td>
+                      <td><a href="/players/{{$winner->user->id}}" style="color: #000;">{{ $winner->user->name }}</a></td>
+                      <td>{{ $winner->user->rating }}</td>
+                      <td>{{ $winner->points }}</td>
                      </tr>
                    @endforeach
                   </tbody>
