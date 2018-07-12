@@ -32,11 +32,17 @@ class TournamentCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+         $this->crud->setFromDb();
+
+        $this->crud->removeColumns(['closed', 'first_prize_winner', 'second_prize_winner', 'third_prize_winner']);
+
+       
+
+        $this->crud->removeFields(['closed', 'first_prize_winner', 'second_prize_winner', 'third_prize_winner']);
 
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
-        // $this->crud->addColumns(); // add multiple columns, at the end of the stack
+         // add multiple columns, at the end of the stack
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
         // $this->crud->setColumnDetails('column_name', ['attribute' => 'value']); // adjusts the properties of the passed in column (by name)
