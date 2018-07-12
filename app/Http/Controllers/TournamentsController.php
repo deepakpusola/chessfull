@@ -45,6 +45,17 @@ class TournamentsController extends Controller
         }
 
         $matches = $playerMatches;
+
+        $winners = [];
+        if($tournament->closed)
+        {
+             $winners = \DB::table('tournament_user')->where('tournament_id', $tournament->id)->select('id', 'user_id')
+                     ->orderBy('points')->limit(3)->get();
+
+             foreach ($winners as $key => $winner) {
+                         $winner->user =  User::find($winner->user_id);
+                     }        
+        }
     	
         return view('tournaments.show', compact('tournament', 'matches'));
     }

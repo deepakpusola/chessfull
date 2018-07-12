@@ -39,7 +39,7 @@
           @endif
 
 
-          @if(auth()->user()->isEnrolled($tournament))
+          @if(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
             <div class="card mb-4">
                 <div class="card-header" style="font-size: 22px;">My Matches</div>
 
@@ -91,6 +91,51 @@
             </div>
 
             @endif
+
+            @if($tournament->closed)
+
+                <div class="card mb-4">
+                <div class="card-header" style="font-size: 22px;">Winners</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                      <table class="table table-striped">
+                    <thead>
+                        <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
+                            <th>Player Name</th>
+                            <th>Rating</th>
+                            <th>Points</th>
+                            <th></th>
+                             
+                        </tr>
+                    </thead>
+                  <tbody>
+
+                   @foreach($winners as $winner) 
+                    <tr style="background: #fff;
+                    color: #000;
+                    font-size: 22px;
+                    font-weight: 700;">
+                      <td><a href="/players/{{$player->user->id}}" style="color: #000;">{{ $player->user->name }}</a></td>
+                      <td>{{ $player->user->rating }}</td>
+                      <td>{{ $player->points }}</td>
+                     </tr>
+                   @endforeach
+                  </tbody>
+                </table>
+
+                   
+                </div>
+            </div>
+
+
+            @endif
+
             <div class="card">
                 <div class="card-header" style="font-size: 22px;">Members Enrolled</div>
 
