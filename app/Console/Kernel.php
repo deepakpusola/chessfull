@@ -32,11 +32,12 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $live = Tournament::where('starttime', '<=', \Carbon\Carbon::now('Asia/Kolkata'))->get();
             foreach ($live as $key => $tournament) {
-                if($tournament->endtime >= \Carbon\Carbon::now('Asia/Kolkata'))
+
+                if($tournament->endtime <= \Carbon\Carbon::now('Asia/Kolkata'))
                 {
                       $tournament->closed = 1;
 
-                      $winners = \DB::table('tournament_user')->select('id', 'user_id')
+                      $winners = \DB::table('tournament_user')->where('tournament_id', $tournament->id)->select('id', 'user_id')
                      ->orderBy('points')->limit(3)->get();
 
                       $tournament->first_prize_winner = isset($winners[0]) ? $winners[0]['user_id'] : 0; 
