@@ -40,9 +40,9 @@ class Kernel extends ConsoleKernel
                       $winners = \DB::table('tournament_user')->where('tournament_id', $tournament->id)->select('id', 'user_id')
                      ->orderBy('points')->limit(3)->get();
 
-                      $tournament->first_prize_winner = isset($winners[0]) ? $winners[0]['user_id'] : 0; 
-                      $tournament->second_prize_winner = isset($winners[1]) ? $winners[1]['user_id'] : 0;   
-                      $tournament->third_prize_winner = isset($winners[1]) ? $winners[2]['user_id'] : 0;  
+                      $tournament->first_prize_winner = isset($winners[0]) ? $winners[0]->user_id : 0; 
+                      $tournament->second_prize_winner = isset($winners[1]) ? $winners[1]->user_id : 0;   
+                      $tournament->third_prize_winner = isset($winners[1]) ? $winners[2]->user_id : 0;  
 
                       $tournament->save();
 
