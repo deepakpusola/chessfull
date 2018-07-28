@@ -34,7 +34,7 @@ class TournamentsController extends Controller
 
     public function show(Tournament $tournament)
     {
-        
+
     	$tournament->is_live = $tournament->starttime <= \Carbon\Carbon::now('Asia/Kolkata') && !$tournament->closed;
     	$matches = $tournament->matches;
 
@@ -57,9 +57,9 @@ class TournamentsController extends Controller
 
              foreach ($winners as $key => $winner) {
                          $winner->user =  User::find($winner->user_id);
-                     }        
+                     }
         }
-    	
+
         return view('tournaments.show', compact('tournament', 'matches', 'winners'));
     }
 
@@ -80,11 +80,11 @@ class TournamentsController extends Controller
 			  $pairs = array_chunk($players, 2);
 
 			  foreach ($pairs as $key => $pair) {
-			  	
+
 			  	 if(count($pair) > 1)
 			  	 {
 
-			  		  $tournament->matches()->create(['player_1' => $pair[0]['id'], 
+			  		  $tournament->matches()->create(['player_1' => $pair[0]['id'],
 			    	                            'player_2' => $pair[1]['id'],
 			    	                            'starttime'=> $tournament->starttime]);
 			  	 } else {
@@ -95,18 +95,18 @@ class TournamentsController extends Controller
 
 					$stamp = $time->format('Y-m-d H:i');
 
-			  	 	$tournament->matches()->create(['player_1' => $pair[0]['id'], 
+			  	 	$tournament->matches()->create(['player_1' => $pair[0]['id'],
 			    	                            'player_2' => $players[0]['id'],
 			    	                            'starttime'=> $stamp]);
 			  	 }
-			  	}	
-				
-			  
-			
-			
+			  	}
+
+
+
+
 		}
 
-	
+
 
     	return redirect('/tournaments/' . $tournament->id);
     }
@@ -120,7 +120,7 @@ class TournamentsController extends Controller
 
     	if($player1 == null || $player2 == null)
     	{
-    			
+
     		return redirect('/tournaments/' . $match->tournament_id)->with('error', 'Invalid game! No opponent found.');
     	}
 
@@ -137,7 +137,7 @@ class TournamentsController extends Controller
 
     	if($player1 == null || $player2 == null)
     	{
-    			
+
     		return redirect('/tournaments/' . $match->tournament_id)->with('error', 'Invalid game! No opponent found.');
     	}
 
@@ -145,7 +145,7 @@ class TournamentsController extends Controller
 
     	$color = $player1->id == auth()->id() ? 'white' : 'black';
 
-    	$play = true;	
+    	$play = true;
 
     	return view('tournaments.match', compact('match', 'play', 'color', 'opponent'));
     }
@@ -159,7 +159,7 @@ class TournamentsController extends Controller
     		$match->result = auth()->id();
 
             //$match->tournament->players()->where('user_id', auth()->id())->pivot->points += 1;
-            
+
             \DB::table('tournament_user')
             ->where('user_id', auth()->id())
             ->increment('points', 1);
@@ -170,19 +170,33 @@ class TournamentsController extends Controller
             {
                 \DB::table('tournament_user')
                 ->where('user_id', $opponent->id)
-                ->decrement('points', 1); 
+                ->decrement('points', 1);
             } else {
 
             }
 
-               
+
 
 
     	} elseif($status == 'lose')
     	{
     		$match->result = $opponent->id;
 
-            
+            \DB::table('tournament_user')
+            ->where('user_id', $opponent->id)
+            ->increment('points', 1);
+
+            $lost = \DB::table('tournament_user')
+            ->where('user_id', auth()->id())->get();
+            if($lost->points > 0)
+            {
+                \DB::table('tournament_user')
+                ->where('user_id', auth()->id())
+                ->decrement('points', 1);
+            } else {
+
+            }
+
 
     	} else {
     		$match->result = 0;
@@ -193,9 +207,9 @@ class TournamentsController extends Controller
 
             \DB::table('tournament_user')
             ->where('user_id', $opponent->id)
-            ->increment('points', 0.5);    
+            ->increment('points', 0.5);
 
-    	} 
+    	}
 
     	$match->save();
 
