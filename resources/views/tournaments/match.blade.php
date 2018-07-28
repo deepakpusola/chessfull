@@ -896,33 +896,33 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
               {
-                  //window.location = '/tournaments/' + '{{ $match->tournament_id }}';
+                   var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+                  gameRef.set({{auth()->id()}});
+
+
+                  swal({
+                      title: "Opponent withdrawn!",
+                      html: true,
+                      text: "<span style='color:#0a0a0a;font-weight:400'>The opponent has withdrawn from the game. You win!</span>",
+                      type: "success",
+                      showCancelButton: true,
+                      confirmButtonColor: "#0048bc",
+                      confirmButtonText: "Go to Tournament!",
+                      cancelButtonText: "Go Home!",
+                      closeOnConfirm: false,
+                      closeOnCancel: false,
+                    },
+                    function(isConfirm){
+                       if(isConfirm) {
+                        window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
+                       } else {
+                        window.location.href = "/";
+                       }
+                    });
               }
               });
 
-              var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
-              gameRef.set({{auth()->id()}});
 
-
-              swal({
-                  title: "Opponent withdrawn!",
-                  html: true,
-                  text: "<span style='color:#0a0a0a;font-weight:400'>The opponent has withdrawn from the game. You win!</span>",
-                  type: "success",
-                  showCancelButton: true,
-                  confirmButtonColor: "#0048bc",
-                  confirmButtonText: "Go to Tournament!",
-                  cancelButtonText: "Go Home!",
-                  closeOnConfirm: false,
-                  closeOnCancel: false,
-                },
-                function(isConfirm){
-                   if(isConfirm) {
-                    window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
-                   } else {
-                    window.location.href = "/";
-                   }
-                });
             } else {
 
             }
