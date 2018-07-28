@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Http\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        ConsoleEvents
         return view('home');
     }
 }

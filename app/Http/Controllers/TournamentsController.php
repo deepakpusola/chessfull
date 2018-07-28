@@ -77,9 +77,7 @@ class TournamentsController extends Controller
 
 		if(count($tournament->players) >= 2)
 		{
-
 			  $pairs = array_chunk($players, 2);
-
 
 			  foreach ($pairs as $key => $pair) {
 			  	

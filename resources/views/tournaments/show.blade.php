@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header" style="font-size: 22px;">Tournament Info 
+                <div class="card-header" style="font-size: 22px;">Tournament Info
                   @if($tournament->is_live)
                     <span class="badge badge-warning" style="margin-left: 7px;">Live</span>
                   @endif
@@ -17,7 +17,7 @@
                     <h4 style="margin-bottom: 18px;"><b>First Prize :</b> &#8377; {{ $tournament->first_prize }}</h4>
                     <h4 style="margin-bottom: 18px;"><b>Second Prize :</b> &#8377; {{ $tournament->second_prize }}</h4>
                     <h4 style="margin-bottom: 18px;"><b>Third Prize :</b> &#8377; {{ $tournament->third_prize }}</h4>
-                  
+
                     <br>
 
                     @if(!auth()->user()->isEnrolled($tournament) && !$tournament->closed && !$tournament->is_live)
@@ -25,9 +25,9 @@
                     @elseif(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
                        <a href="#" class="btn btn-primary btn-lg disabled" style="width: 100%;">Enrolled</a>
                     @else
-                        <a href="#" class="btn btn-danger btn-lg disabled" style="width: 100%;">Closed</a> 
+                        <a href="#" class="btn btn-danger btn-lg disabled" style="width: 100%;">Closed</a>
                     @endif
-                    
+
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="col-md-8">
 
           @if($tournament->is_live)
-            
+
             <p class="badge badge-warning" style="font-size: 22px;">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
 
           @endif
@@ -59,12 +59,12 @@
                             <th>Rating</th>
                             <th>Time</th>
                             <th></th>
-                             
+
                         </tr>
                     </thead>
                   <tbody>
 
-                   @foreach($matches as $match) 
+                   @foreach($matches as $match)
                     <tr style="background: #fff;
     color: #000;
     font-size: 22px;
@@ -77,8 +77,10 @@
                       @else
                         @if($match->result == 0)
                          <td><span class="badge badge-warning">Draw</span></td>
-                        @elseif($match->result == auth()->id()) 
+                        @elseif($match->result == auth()->id())
                         <td><span class="badge badge-success">Won</span></td>
+                        @elseif($match->result == -1)
+                        <td><span class="badge badge-primary">Pending</span></td>
                         @else
                           <td><span class="badge badge-danger">Lost</span></td>
                         @endif
@@ -88,7 +90,7 @@
                   </tbody>
                 </table>
 
-                   
+
                 </div>
             </div>
 
@@ -112,13 +114,13 @@
                             <th>Player Name</th>
                             <th>Rating</th>
                             <th>Points</th>
-                            
-                             
+
+
                         </tr>
                     </thead>
                   <tbody>
 
-                   @foreach($winners as $winner) 
+                   @foreach($winners as $winner)
                     <tr style="background: #fff;
                     color: #000;
                     font-size: 22px;
@@ -131,7 +133,7 @@
                   </tbody>
                 </table>
 
-                   
+
                 </div>
             </div>
 
@@ -154,12 +156,12 @@
                             <th>Name</th>
                             <th>Rating</th>
                             <th>Points</th>
-                             
+
                         </tr>
                     </thead>
                   <tbody>
 
-                   @foreach($tournament->players as $player) 
+                   @foreach($tournament->players as $player)
                     <tr style="background: #fff;
     color: #000;
     font-size: 22px;
@@ -167,25 +169,25 @@
                       <td><a href="/players/{{$player->id}}" style="color: #000;">{{ $player->name }}</a></td>
                       <td>{{ $player->rating }}</td>
                       <td>{{ $player->pivot->points }}</td>
-                       
+
                     </tr>
                    @endforeach
                   </tbody>
                 </table>
 
-                   
+
                 </div>
             </div>
         </div>
 
-        
+
     </div>
 </div>
 @endsection
 
 
 @section('scripts')
-  
+
 
  <script>
 // Set the date we're counting down to
@@ -210,7 +212,7 @@ var x = setInterval(function() {
   document.getElementById("endtimer").innerHTML = days + "d " + hours + "h "
   + minutes + "m " + seconds + "s ";
 
-  // If the count down is finished, write some text 
+  // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("endtimer").innerHTML = "EXPIRED";
