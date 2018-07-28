@@ -799,27 +799,7 @@ updateStatus();
   }
 
 
-console.log('triggered');
-          if(!game.game_over())
-          {
-             console.log('clear hit');
 
-                    $.ajax({
-                    type: "POST",
-                    url: '/matches/' + '{{ $match->id }}' + '/lose',
-                    data: dataString,
-                    cache: false,
-                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
-                    success: function(html, window)
-                    {
-                       var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
-                    gameRef.set({{$opponent->id}});
-
-                  var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
-                  gameRef.set(0);
-                    }
-                    });
-                }
 
 
 
@@ -832,7 +812,7 @@ console.log('triggered');
                     $.ajax({
                     type: "POST",
                     url: '/matches/' + '{{ $match->id }}' + '/lose',
-                    data: dataString,
+                    data: '',
                     cache: false,
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
