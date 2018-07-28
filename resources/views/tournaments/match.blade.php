@@ -886,21 +886,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
          {
             if(!game.game_over())
             {
-               var dataString = '';
-
-              $.ajax({
-              type: "POST",
-              url: '/matches/' + '{{ $match->id }}' + '/won',
-              data: dataString,
-              cache: false,
-              beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
-              success: function(html, window)
-              {
-                   var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
-                  gameRef.set({{auth()->id()}});
-
-
-                  swal({
+                swal({
                       title: "Opponent withdrawn!",
                       html: true,
                       text: "<span style='color:#0a0a0a;font-weight:400'>The opponent has withdrawn from the game. You win!</span>",
@@ -919,8 +905,6 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
                         window.location.href = "/";
                        }
                     });
-              }
-              });
 
 
             } else {
