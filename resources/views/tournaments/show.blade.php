@@ -34,11 +34,12 @@
 
         <div class="col-md-8">
 
-          @if($tournament->is_live)
 
-            <p class="badge badge-warning" style="font-size: 22px;">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
 
-          @endif
+            <p class="badge badge-warning" style="font-size: 22px;
+            display:{{ $tournament->is_live ? 'block' : 'none'; }}">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
+
+
 
 
           @if(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
@@ -192,7 +193,7 @@
  <script>
 // Set the date we're counting down to
 var countDownDate = new Date("{{ $tournament->endtime }}").getTime();
-var startDownDate = new Date("{{ $tournament->start }}").getTime();
+var startDownDate = new Date("{{ $tournament->starttime }}").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -204,10 +205,13 @@ var x = setInterval(function() {
   var distance = countDownDate - now;
   var startDistance = startDownDate - now;
 
-  if(startDistance < 0)
-  {
-    window.reload();
-  }
+  @if(!$tournament->is_live)
+    if(startDistance < 0)
+    {
+      console.log('refresshing');
+      window.reload();
+    }
+  @endif
 
   // Time calculations for days, hours, minutes and seconds
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));

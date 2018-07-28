@@ -5,9 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Tournament Match <a href="/tournaments/{{$match->tournament_id}}"  style="margin-left: 15px;" class="btn btn-primary">
-                                      <i class="fa fa-refresh"></i> Resign
-                                   </a></div>
+                <div class="card-header">Tournament Match </div>
 
                 <div class="card-body">
                     <div class="row">
