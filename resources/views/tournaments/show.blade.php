@@ -229,7 +229,7 @@ var x = setInterval(function() {
     document.getElementById("endtimer").innerHTML = "EXPIRED";
   }
 
-  @if(!$tournament->is_closed)
+  @if(!$tournament->closed)
     if(distance < 0)
     {
        window.location.reload();
