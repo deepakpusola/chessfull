@@ -819,7 +819,7 @@ console.log('triggered');
                   gameRef.set(0);
                     }
                     });
-
+                }
 
 
 
