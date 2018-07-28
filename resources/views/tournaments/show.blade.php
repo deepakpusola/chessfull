@@ -37,7 +37,7 @@
 
 
             <p class="badge badge-warning" style="font-size: 22px;
-            display:{{ $tournament->is_live ? 'block' : 'none'; }}">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
+            display:{{ $tournament->is_live ? 'block' : 'none' }}">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
 
 
 
