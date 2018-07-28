@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Tournament Match <a href="/tournaments/{{$match->tournament_id}}"  style="margin-left: 15px;" class="btn btn-primary">
                                       <i class="fa fa-refresh"></i> Resign
-                                   </a></div>   
+                                   </a></div>
 
                 <div class="card-body">
                     <div class="row">
@@ -16,14 +16,14 @@
                                             <div class="col-sm-8" style="padding: 14px;">
 
                                                <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
-                                               
-                                                
-                                              <div id="board" style="width: 100%;"></div> 
 
-                                               
+
+                                              <div id="board" style="width: 100%;"></div>
+
+
                                                 <br>
                                                 <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class="text-primary" id="time2">0:05:00</span>)</p>
-       
+
 
                                             <br>
 
@@ -36,15 +36,15 @@
                                               </div>
                                             <hr>
                                             <p style="color: #fff;font-weight: bold;font-size: 22px;"><strong>Status: </strong><span id="status"></span></p>
-                                            
-                                            <hr>                        
+
+                                            <hr>
                                             <p>
-                                             
+
                                               <i id="source" data-val="0" hidden="true"></i>
                                                 <i id="dest" data-val="0" hidden="true"></i>
-                                                
 
-                                                
+
+
                                             </div>
 
                     </div>
@@ -58,10 +58,10 @@
 <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form >   
+      <form >
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Live Tournament</h5>
-       
+
       </div>
       <div class="modal-body">
          @if (session('error'))
@@ -69,15 +69,15 @@
                 {{ session('error') }}
             </div>
         @endif
-          
+
         <div class="loader"></div>
 
-       <h3 class="text-center"><b>Waiting for opponent...</b></h3>   
-     
+       <h3 class="text-center"><b>Waiting for opponent...</b></h3>
+
       </div>
       <div class="modal-footer">
         <a type="button" class="btn btn-secondary" href="/tournaments/{{$match->tournament_id}}}">Cancel</a>
-       
+
       </div>
     </div>
     </form>
@@ -92,9 +92,9 @@
 
 
 @section('scripts')
-   
+
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
- 
+
 
     <script type="text/javascript">
       $('.myLink').on('click', function(e) {
@@ -117,29 +117,29 @@
   statusEl = $('#status'),
   fenEl = $('#fen'),
   pgnEl = $('#pgn');
-  
+
 
   var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
    var clockTimeoutID = null;
     var timeOver = false;
 
     var playerColor = '{{ $color }}';
-    
+
 
    // do not pick up pieces if the game is over
     // only pick up pieces for White
     var onDragStart = function(source, piece, position, orientation) {
         var turn = '{{ $color == 'white' ? 'w' : 'b' }}';
-       
+
             if (game.game_over() ||
                 game.turn() != turn) {
                 return false;
             }
     };
 
- 
 
-  
+
+
     function displayClock(color, t) {
         var isRunning = false;
         if(time.startTime > 0 && color == time.clockColor) {
@@ -165,7 +165,7 @@
     }
 
     function clockTick() {
-         
+
           var t = (time.clockColor == 'white' ? time.wtime : time.btime) + time.startTime - Date.now();
           console.log(t);
          if(t <= 0 && time.clockColor == 'white')
@@ -174,7 +174,7 @@
               if(playerColor == 'white')
               {
                 var dataString = '';
-  
+
               $.ajax({
                     type: "POST",
                     url: '/matches/' + '{{ $match->id }}' + '/lose',
@@ -182,8 +182,8 @@
                     cache: false,
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
-                    { 
-                   
+                    {
+
                     }
                     });
 
@@ -191,7 +191,7 @@
               gameRef.set({{$opponent->id}});
             } else {
                var dataString = '';
-  
+
               $.ajax({
                     type: "POST",
                     url: '/matches/' + '{{ $match->id }}' + '/won',
@@ -199,8 +199,8 @@
                     cache: false,
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
-                    { 
-                   
+                    {
+
                     }
                     });
 
@@ -222,14 +222,14 @@
                     window.location.href = "/play-friend";
                    } else {
                     window.location.href = "/";
-                   }  
-                }); 
+                   }
+                });
             } else if(t <= 0 && time.clockColor == 'black') {
 
                if(playerColor == 'black')
               {
                 var dataString = '';
-  
+
               $.ajax({
                     type: "POST",
                     url: '/matches/' + '{{ $match->id }}' + '/lose',
@@ -237,8 +237,8 @@
                     cache: false,
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
-                    { 
-                   
+                    {
+
                     }
                     });
 
@@ -246,7 +246,7 @@
               gameRef.set({{$opponent->id}});
             } else {
                var dataString = '';
-  
+
               $.ajax({
                     type: "POST",
                     url: '/matches/' + '{{ $match->id }}' + '/won',
@@ -254,8 +254,8 @@
                     cache: false,
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
-                    { 
-                   
+                    {
+
                     }
                     });
 
@@ -277,8 +277,8 @@
                     window.location.href = "/play-friend";
                    } else {
                     window.location.href = "/";
-                   }  
-                }); 
+                   }
+                });
             } else {
                  updateClock();
         var t = (time.clockColor == 'white' ? time.wtime : time.btime) + time.startTime - Date.now();
@@ -306,7 +306,7 @@
 
     function startClock() {
         if(game.turn() == 'w') {
-           
+
             time.wtime += time.winc;
             time.clockColor = 'white';
         } else {
@@ -322,7 +322,7 @@
     //not used for buttons for efficiency
     function goToMove(ply) {
          /*gameHistory = game.history({verbose: true});
-      if (ply > gameHistory.length - 1) 
+      if (ply > gameHistory.length - 1)
           {
             ply = gameHistory.length - 1;
         }
@@ -347,7 +347,7 @@
 
 
     function updatePgn()
-    {  
+    {
         var h = game.header();
         var gameHeaderText = '<h4>' + h.White + ' (' + h.WhiteElo + ') - ' + h.Black + ' (' + h.BlackElo + ')</h4>';
         gameHeaderText += '<h5>' + h.Event + ', ' + h.Site + ' ' + h.EventDate + '</h5>';
@@ -368,7 +368,7 @@
             moveArray[i] = s;
           }
           $("#game-data").html('<div class="gameMoves">' + moveArray.join(' ') + ' <span class="gameResult">'  + '</span></div>');
-          
+
           var moveColor = 'White';
         if (game.turn() === 'b') {
           moveColor = 'Black';
@@ -408,15 +408,15 @@
         var turn = game.turn() == 'w' ? 'white' : 'black';
         if(!game.game_over() && !timeOver) {
             if(turn != playerColor) {
-                
+
             }
             if(game.history().length >= 2 && !time.depth && !time.nodes) {
                 startClock();
             }
         } else if(playerColor == turn) {
-           
+
             var dataString = 'operation=decrement' + '&points='+150;
-  
+
               $.ajax({
               type: "POST",
               url: '/user/game/stats/',
@@ -424,10 +424,10 @@
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
+              {
                   console.log("LOST");
-                         
-  
+
+
               }
               });
 
@@ -448,11 +448,11 @@
                     window.location.href = "/play-computer";
                    } else {
                     window.location.href = "/home";
-                   }  
+                   }
                 });
         } else {
           var dataString = 'operation=increment' + '&points='+250;
-  
+
               $.ajax({
               type: "POST",
               url: '/user/game/stats/',
@@ -460,8 +460,8 @@
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
-                    
+              {
+
               }
               });
 
@@ -482,10 +482,10 @@
                     window.location.href = "/play-computer";
                    } else {
                     window.location.href = "/home";
-                   }  
-                }); 
-             
-             
+                   }
+                });
+
+
         }
     }
 
@@ -508,7 +508,7 @@ var onDrop = function(source, target) {
   updateStatus();
 };
 
-// update the board position after the piece snap 
+// update the board position after the piece snap
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
   board.position(game.fen());
@@ -529,7 +529,7 @@ var updateStatus = function() {
     if(moveColor != '{{ $color }}')
     {
         var dataString = '';
-  
+
         $.ajax({
               type: "POST",
               url: '/matches/' + '{{ $match->id }}' + '/won',
@@ -537,8 +537,8 @@ var updateStatus = function() {
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
-             
+              {
+
               }
               });
 
@@ -564,11 +564,11 @@ var updateStatus = function() {
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
     } else {
         var dataString = '';
-  
+
         $.ajax({
               type: "POST",
               url: '/matches/' + '{{ $match->id }}' + '/lose',
@@ -576,8 +576,8 @@ var updateStatus = function() {
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
-             
+              {
+
               }
               });
 
@@ -599,7 +599,7 @@ var updateStatus = function() {
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
     }
   }
@@ -608,7 +608,7 @@ var updateStatus = function() {
   else if (game.in_draw() === true) {
     status = 'Game over, drawn position';
     var dataString = '';
-  
+
         $.ajax({
               type: "POST",
               url: '/matches/' + '{{ $match->id }}' + '/draw',
@@ -616,8 +616,8 @@ var updateStatus = function() {
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
-             
+              {
+
               }
               });
 
@@ -642,7 +642,7 @@ var updateStatus = function() {
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
   }
 
@@ -678,7 +678,7 @@ var cfg = {
         onDrop: onDrop,
         onSnapEnd: onSnapEnd,
          orientation: '{{ $color }}',
-       
+
     };
 
 
@@ -687,12 +687,12 @@ board = ChessBoard('board', cfg);
 function clickOnSquare(evt) {
 
   stopClock();
-  
+
    if (game.game_over() ) {
                 return false;
             }
     var turn = game.turn() == 'w' ? 'white' : 'black';
-    if(turn == '{{ $color }}')        
+    if(turn == '{{ $color }}')
    {
             var square = $(this).data("square");
              var squareEl = $('#board .square-' + square);
@@ -705,28 +705,28 @@ function clickOnSquare(evt) {
             }
 
               squareEl.css('background', background);
-            
-              
+
+
               var source = $('#source').data('val');
-              
+
               if(source == 0)
               {
                 $('#source').data('val', square);
-               
+
               } else {
-                  
-                  
+
+
                   var destination = square;
 
                console.log(source+destination);
 
-             
+
             var move = game.move({
               from: source.toString(),
               to: destination.toString(),
               promotion: 'q' // NOTE: always promote to a queen for example simplicity
             });
-             
+
 
             // illegal move
             if (move != null) {
@@ -738,31 +738,31 @@ function clickOnSquare(evt) {
                       background = '#696969';
                     }
                      $('#board .square-' + source).css('background', background);
-               
+
                handleMove(source.toString(), destination.toString());
-              updateClock();       
+              updateClock();
 
          //startClock();
 
          updatePgn();
 
         updateStatus();
-               
-                
+
+
             } else {
-                
-                
+
+
                   $('#board .square-55d63').css('background', '');
-                 } 
+                 }
 
                   $('#source').data('val', 0);
-                  
+
               }
 
-            
-            
+
+
             updateStatus();
-             
+
             console.log("You clicked on square: " + square);
       }
 }
@@ -799,6 +799,27 @@ updateStatus();
   }
 
 
+console.log('triggered');
+          if(!game.game_over())
+          {
+             console.log('clear hit');
+
+                    $.ajax({
+                    type: "POST",
+                    url: '/matches/' + '{{ $match->id }}' + '/lose',
+                    data: dataString,
+                    cache: false,
+                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+                    success: function(html, window)
+                    {
+                       var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+                    gameRef.set({{$opponent->id}});
+
+                  var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
+                  gameRef.set(0);
+                    }
+                    });
+
 
 
 
@@ -807,7 +828,7 @@ updateStatus();
           if(!game.game_over())
           {
              console.log('clear hit');
-                  
+
                     $.ajax({
                     type: "POST",
                     url: '/matches/' + '{{ $match->id }}' + '/lose',
@@ -815,43 +836,43 @@ updateStatus();
                     cache: false,
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
-                    { 
-                   
+                    {
+                       var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+                    gameRef.set({{$opponent->id}});
+
+                  var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
+                  gameRef.set(0);
                     }
                     });
 
-                    var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
-                    gameRef.set({{$opponent->id}});
-              
-                  var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
-                  gameRef.set(0);
-            
-            
+
+
+
           }
-   
+
     };
 
 
-  
 
-  
+
+
     var $refId = {{ $match->id }};
     var gameRef = firebase.database().ref('matches/' + $refId + '/moves');
     gameRef.on('child_added', function(snapshot) {
-         
-        stopClock(); 
-        
+
+        stopClock();
+
         console.log(snapshot.val());
-        
+
         source = snapshot.val().from;
-        
+
         target = snapshot.val().to;
 
         var move = game.move({
           from: source,
           to: target,
         });
-        
+
         board.position(game.fen());
 
          $('#board .square-55d63').css('background', '');
@@ -868,8 +889,8 @@ updateStatus();
               }
                $('#board .square-' + source).css('background', background);
                 playAudio();
-          
-          updateClock();       
+
+          updateClock();
 
           startClock();
 
@@ -888,7 +909,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
             if(!game.game_over())
             {
                var dataString = '';
-  
+
               $.ajax({
               type: "POST",
               url: '/matches/' + '{{ $match->id }}' + '/won',
@@ -896,7 +917,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
+              {
                   //window.location = '/tournaments/' + '{{ $match->tournament_id }}';
               }
               });
@@ -922,21 +943,21 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
             } else {
 
             }
          }
     });
-   
-    
+
+
 
 
 
     </script>
 
-     @endif 
+     @endif
 
     @if(!isset($play))
 
@@ -944,7 +965,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
         <script type="text/javascript">
 
 
-        
+
 
           // Initialize Firebase
   // TODO: Replace with your project's customized code snippet
@@ -967,7 +988,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
    setTimeout(function(){
 
          var dataString = '';
-  
+
               $.ajax({
               type: "POST",
               url: '/matches/' + '{{ $match->id }}' + '/won',
@@ -975,7 +996,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
+              {
                   //window.location = '/tournaments/' + '{{ $match->tournament_id }}';
               }
               });
@@ -1000,7 +1021,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
 
         }, 20000);
@@ -1030,7 +1051,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
             } else if(val == aid) {
               swal({
@@ -1050,9 +1071,9 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
-             
+
             } else {
                  swal({
                   title: "This match was a draw!",
@@ -1071,9 +1092,9 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
                     window.location.href = "/tournaments/" + '{{ $match->tournament_id }}';
                    } else {
                     window.location.href = "/";
-                   }  
+                   }
                 });
-              
+
             }
             } else {
                var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{$opponent->id}}');
@@ -1086,16 +1107,16 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
          }
     });
             }
-         
+
     });
 
-  
+
         </script>
 
-    @endif 
+    @endif
 
 
-  
 
-  
+
+
 @stop
