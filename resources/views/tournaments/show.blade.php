@@ -209,7 +209,7 @@ var x = setInterval(function() {
     if(startDistance < 0)
     {
       console.log('refresshing');
-      window.reload();
+      window.location.reload();
     }
   @endif
 
