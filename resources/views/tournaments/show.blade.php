@@ -209,7 +209,7 @@ var x = setInterval(function() {
     if(startDistance < 0)
     {
       console.log('refresshing');
-      window.location.reload();
+      window.location.reload( );
     }
   @endif
 
@@ -228,6 +228,13 @@ var x = setInterval(function() {
     clearInterval(x);
     document.getElementById("endtimer").innerHTML = "EXPIRED";
   }
+
+  @if(!$tournament->is_closed)
+    if(distance < 0)
+    {
+       window.location.reload();
+    }
+  @endif
 }, 1000);
 </script>
 
