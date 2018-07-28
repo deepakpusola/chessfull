@@ -205,7 +205,7 @@ var x = setInterval(function() {
   var distance = countDownDate - now;
   var startDistance = startDownDate - now;
 
-  @if(!$tournament->is_live)
+  @if(!$tournament->is_live && !$tournament->closed)
     if(startDistance < 0)
     {
       console.log('refresshing');
