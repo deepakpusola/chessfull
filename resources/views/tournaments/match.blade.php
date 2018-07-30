@@ -13,6 +13,8 @@
 
                                             <div class="col-sm-8" style="padding: 14px;">
 
+                                              <button onclick="closeGame()">Close Game</button>
+
                                                <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
 
 
@@ -797,13 +799,9 @@ updateStatus();
   }
 
 
-
-
-
-
-  window.onbeforeunload = function (e) {
-         console.log('triggered');
-          if(!game.game_over())
+closeGame = function() {
+  console.log('closing');
+if(!game.game_over())
           {
              console.log('clear hit');
 
@@ -815,16 +813,48 @@ updateStatus();
                     beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
                     success: function(html, window)
                     {
+                       console.log(html);
                        var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
-                    gameRef.set({{$opponent->id}});
+                       gameRef.set({{$opponent->id}});
 
-                  var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
-                  gameRef.set(0);
+                        var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
+                        gameRef.set(0);
                     }
                     });
 
 
 
+
+          }
+}
+
+
+var opponentLeft = false;
+
+  window.onbeforeunload = function (e) {
+         console.log('triggered');
+          if(!game.game_over() && opponentLeft == false)
+          {
+             console.log('clear hit');
+
+                    $.ajax({
+                    type: "POST",
+                    url: '/matches/' + '{{ $match->id }}' + '/lose',
+                    data: '',
+                    cache: false,
+                    beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
+                    success: function(html, window)
+                    {
+
+                    }
+                    });
+
+
+                      var gameRef = firebase.database().ref('matches/' + '{{$match->id}}' + '/result/');
+                       gameRef.set({{$opponent->id}});
+
+                        var gameRef = firebase.database().ref('matches/' + $refId + '/players/' + '{{auth()->id()}}');
+                        gameRef.set(0);
 
           }
 
@@ -886,6 +916,7 @@ var gameStartRef = firebase.database().ref('matches/' + $refId + '/players/' + '
          {
             if(!game.game_over())
             {
+                opponentLeft = true;
                 swal({
                       title: "Opponent withdrawn!",
                       html: true,
