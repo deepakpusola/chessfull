@@ -34,9 +34,9 @@ class TournamentCrudController extends CrudController
 
          $this->crud->setFromDb();
 
-        $this->crud->removeColumns(['closed', 'first_prize_winner', 'second_prize_winner', 'third_prize_winner']);
+         $this->crud->removeColumns(['closed', 'first_prize_winner', 'second_prize_winner', 'third_prize_winner']);
 
-       
+
 
 /*        $this->crud->removeFields(['closed', 'first_prize_winner', 'second_prize_winner', 'third_prize_winner']);
 */

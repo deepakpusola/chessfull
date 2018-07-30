@@ -152,16 +152,16 @@ class TournamentsController extends Controller
 
     public function updateStatus(Match $match, $status)
     {
-    	$opponent = $match->player1->id == auth()->id() ? $match->player2 : $match->player1;
+    	$opponent = $match->player1->id == request('uid') ? $match->player2 : $match->player1;
 
     	if($status == 'won')
     	{
-    		$match->result = auth()->id();
+    		$match->result = request('uid');
 
             //$match->tournament->players()->where('user_id', auth()->id())->pivot->points += 1;
 
             \DB::table('tournament_user')
-            ->where('user_id', auth()->id())
+            ->where('user_id', request('uid'))
             ->increment('points', 1);
 
             $lost = \DB::table('tournament_user')
@@ -187,11 +187,11 @@ class TournamentsController extends Controller
             ->increment('points', 1);
 
             $lost = \DB::table('tournament_user')
-            ->where('user_id', auth()->id())->get();
+            ->where('user_id', request('uid'))->get();
             if($lost->points > 0)
             {
                 \DB::table('tournament_user')
-                ->where('user_id', auth()->id())
+                ->where('user_id', request('uid'))
                 ->decrement('points', 1);
             } else {
 
@@ -202,7 +202,7 @@ class TournamentsController extends Controller
     		$match->result = 0;
 
              \DB::table('tournament_user')
-            ->where('user_id', auth()->id())
+            ->where('user_id', request('uid'))
             ->increment('points', 0.5);
 
             \DB::table('tournament_user')
