@@ -18,7 +18,7 @@ Route::get('/', function () {
         auth()->user()->save();
 	}
 
-    return view('welcome');
+return view('welcome');
 });
 
 Auth::routes();
