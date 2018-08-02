@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   <img src="/img/logo.png" style="width: 190px;">
+                   <img src="/img/logo.png" style="width: 190px;margin-top: 13px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -44,19 +44,27 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="nav navbar-nav navbar-center m-auto">
+                        <li style="margin-top: 13px;"><a href=""></a><img src="/img/rupee.png" alt="logos"></li>
+                        <li style="" class="text-list"><a href="#" class="text-style">14.3</a></li>
+
+                        <li> <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" > Add Cash</button></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto" style="margin-top:12px;">
                         <!-- Authentication Links -->
+
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item pull-left">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item pull-left">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <li class="nav-item dropdown navbar-button">
+                                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" >My Account</button>
+                                   <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -109,7 +117,7 @@
       </script>
      @endif
 
-     
+
     <script src="/js/jquery-plugin-collection.js"></script>
     <script src="/js/chessboard.js"></script>
      <script src="/js/chessboardjs-themes.js"></script>
