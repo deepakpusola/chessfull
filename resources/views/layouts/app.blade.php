@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -83,6 +85,32 @@
     </div>
 
 
+    <div class="modal fade" id="addMoney" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <form method="POST" action="/wallet/add">
+             @csrf
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Cash</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h3>Enter amount to add</h3>
+
+                <input type="number" name="amount" class="form-control">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Continue</button>
+              </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
        @if( session('flash_title') && session('flash_message'))
              <script type="text/javascript">
                  swal({
@@ -109,7 +137,7 @@
       </script>
      @endif
 
-     
+
     <script src="/js/jquery-plugin-collection.js"></script>
     <script src="/js/chessboard.js"></script>
      <script src="/js/chessboardjs-themes.js"></script>

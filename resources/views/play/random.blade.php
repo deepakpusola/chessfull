@@ -3,65 +3,47 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Play with Friend <a href="/play-random"  style="margin-left: 15px;" data-target="#con-close-modal" class="btn btn-primary">
-                                      <i class="fa fa-refresh"></i> Start New Game
-                                   </a></div>   
 
-                <div class="card-body">
-                    <div class="row">
+
+                <div>
+
                         <script src="/js/chess.js"></script>
 
-                                            <div class="col-sm-8" style="padding: 14px;">
+
 
                                                <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
-                                               
-                                                
-                                              <div id="board" style="width: 100%;"></div> 
 
-                                               
+
+                                              <div id="board" style="width: 70vh;"></div>
+
+
                                                 <br>
                                                 <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class="text-primary" id="time2">0:05:00</span>)</p>
-       
+
 
                                             <br>
 
-                                            </div>
 
-                                            <div class="col-sm-4" style="margin-top: 55px;" id="puzzle-detail">
 
-                                            <h3>Moves:</h3>
-                                            <div id="game-data">
-                                              </div>
-                                            <hr>
-                                            <p style="color: #fff;font-weight: bold;font-size: 22px;"><strong>Status: </strong><span id="status"></span></p>
-                                            
-                                            <hr>                        
-                                            <p>
-                                             
-                                              <i id="source" data-val="0" hidden="true"></i>
+
+
+                                             <i id="source" data-val="0" hidden="true"></i>
                                                 <i id="dest" data-val="0" hidden="true"></i>
-                                                
 
-                                                
-                                            </div>
 
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form >   
+      <form >
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Live Chess</h5>
-       
+
       </div>
       <div class="modal-body">
          @if (session('error'))
@@ -69,15 +51,15 @@
                 {{ session('error') }}
             </div>
         @endif
-          
+
           <div class="loader"></div>
 
-       <h3 class="text-center"><b>Finding an opponent...</b></h3>   
-     
+       <h3 class="text-center"><b>Finding an opponent...</b></h3>
+
       </div>
       <div class="modal-footer">
         <a type="button" class="btn btn-secondary" href="/">Cancel</a>
-       
+
       </div>
     </div>
     </form>
@@ -92,9 +74,9 @@
 
 
 @section('scripts')
-   
+
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
- 
+
 
     <script type="text/javascript">
       $('.myLink').on('click', function(e) {
@@ -117,29 +99,29 @@
   statusEl = $('#status'),
   fenEl = $('#fen'),
   pgnEl = $('#pgn');
-  
+
 
   var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
    var clockTimeoutID = null;
     var timeOver = false;
 
     var playerColor = '{{ $color }}';
-    
+
 
    // do not pick up pieces if the game is over
     // only pick up pieces for White
     var onDragStart = function(source, piece, position, orientation) {
         var turn = '{{ $color == 'white' ? 'w' : 'b' }}';
-       
+
             if (game.game_over() ||
                 game.turn() != turn) {
                 return false;
             }
     };
 
- 
 
-  
+
+
     function displayClock(color, t) {
         var isRunning = false;
         if(time.startTime > 0 && color == time.clockColor) {
@@ -165,7 +147,7 @@
     }
 
     function clockTick() {
-         
+
           var t = (time.clockColor == 'white' ? time.wtime : time.btime) + time.startTime - Date.now();
           console.log(t);
          if(t <= 0 && time.clockColor == 'white')
@@ -185,8 +167,8 @@
                     window.location.href = "/play-random";
                    } else {
                     window.location.href = "/";
-                   }  
-                }); 
+                   }
+                });
             } else if(t <= 0 && time.clockColor == 'black') {
                 timeOver = true;
                 swal({
@@ -203,8 +185,8 @@
                     window.location.href = "/play-random";
                    } else {
                     window.location.href = "/";
-                   }  
-                }); 
+                   }
+                });
             } else {
                  updateClock();
         var t = (time.clockColor == 'white' ? time.wtime : time.btime) + time.startTime - Date.now();
@@ -232,7 +214,7 @@
 
     function startClock() {
         if(game.turn() == 'w') {
-           
+
             time.wtime += time.winc;
             time.clockColor = 'white';
         } else {
@@ -248,7 +230,7 @@
     //not used for buttons for efficiency
     function goToMove(ply) {
          /*gameHistory = game.history({verbose: true});
-      if (ply > gameHistory.length - 1) 
+      if (ply > gameHistory.length - 1)
           {
             ply = gameHistory.length - 1;
         }
@@ -273,7 +255,7 @@
 
 
     function updatePgn()
-    {  
+    {
         var h = game.header();
         var gameHeaderText = '<h4>' + h.White + ' (' + h.WhiteElo + ') - ' + h.Black + ' (' + h.BlackElo + ')</h4>';
         gameHeaderText += '<h5>' + h.Event + ', ' + h.Site + ' ' + h.EventDate + '</h5>';
@@ -294,7 +276,7 @@
             moveArray[i] = s;
           }
           $("#game-data").html('<div class="gameMoves">' + moveArray.join(' ') + ' <span class="gameResult">'  + '</span></div>');
-          
+
           var moveColor = 'White';
         if (game.turn() === 'b') {
           moveColor = 'Black';
@@ -334,15 +316,15 @@
         var turn = game.turn() == 'w' ? 'white' : 'black';
         if(!game.game_over() && !timeOver) {
             if(turn != playerColor) {
-                
+
             }
             if(game.history().length >= 2 && !time.depth && !time.nodes) {
                 startClock();
             }
         } else if(playerColor == turn) {
-           
+
             var dataString = 'operation=decrement' + '&points='+150;
-  
+
               $.ajax({
               type: "POST",
               url: '/user/game/stats/',
@@ -350,10 +332,10 @@
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
+              {
                   console.log("LOST");
-                         
-  
+
+
               }
               });
 
@@ -374,11 +356,11 @@
                     window.location.href = "/play-computer";
                    } else {
                     window.location.href = "/home";
-                   }  
+                   }
                 });
         } else {
           var dataString = 'operation=increment' + '&points='+250;
-  
+
               $.ajax({
               type: "POST",
               url: '/user/game/stats/',
@@ -386,8 +368,8 @@
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
-                    
+              {
+
               }
               });
 
@@ -408,10 +390,10 @@
                     window.location.href = "/play-computer";
                    } else {
                     window.location.href = "/home";
-                   }  
-                }); 
-             
-             
+                   }
+                });
+
+
         }
     }
 
@@ -434,7 +416,7 @@ var onDrop = function(source, target) {
   updateStatus();
 };
 
-// update the board position after the piece snap 
+// update the board position after the piece snap
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
   board.position(game.fen());
@@ -455,7 +437,7 @@ var updateStatus = function() {
     if(moveColor != '{{ $color }}')
     {
     var dataString = 'operation=increment' + '&points='+250;
-  
+
               $.ajax({
               type: "POST",
               url: '/user/game/stats/',
@@ -463,8 +445,8 @@ var updateStatus = function() {
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
-                    
+              {
+
               }
               });
 
@@ -485,11 +467,11 @@ var updateStatus = function() {
                     window.location.href = "/play-random";
                    } else {
                     window.location.href = "/home";
-                   }  
-                }); 
+                   }
+                });
     } else {
         var dataString = 'operation=decrement' + '&points='+150;
-  
+
               $.ajax({
               type: "POST",
               url: '/user/game/stats/',
@@ -497,10 +479,10 @@ var updateStatus = function() {
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
+              {
                   console.log("LOST");
-                         
-  
+
+
               }
               });
 
@@ -521,7 +503,7 @@ var updateStatus = function() {
                     window.location.href = "/play-random";
                    } else {
                     window.location.href = "/home";
-                   }  
+                   }
                 });
     }
   }
@@ -563,7 +545,7 @@ var cfg = {
         onDrop: onDrop,
         onSnapEnd: onSnapEnd,
          orientation: '{{ $color }}',
-       
+
     };
 
 
@@ -572,12 +554,12 @@ board = ChessBoard('board', cfg);
 function clickOnSquare(evt) {
 
   stopClock()
-  
+
    if (game.game_over() ) {
                 return false;
             }
     var turn = game.turn() == 'w' ? 'white' : 'black';
-    if(turn == '{{ $color }}')        
+    if(turn == '{{ $color }}')
    {
             var square = $(this).data("square");
              var squareEl = $('#board .square-' + square);
@@ -590,28 +572,28 @@ function clickOnSquare(evt) {
             }
 
               squareEl.css('background', background);
-            
-              
+
+
               var source = $('#source').data('val');
-              
+
               if(source == 0)
               {
                 $('#source').data('val', square);
-               
+
               } else {
-                  
-                  
+
+
                   var destination = square;
 
                console.log(source+destination);
 
-             
+
             var move = game.move({
               from: source.toString(),
               to: destination.toString(),
               promotion: 'q' // NOTE: always promote to a queen for example simplicity
             });
-             
+
 
             // illegal move
             if (move != null) {
@@ -623,28 +605,28 @@ function clickOnSquare(evt) {
                       background = '#696969';
                     }
                      $('#board .square-' + source).css('background', background);
-               
+
                handleMove(source, destination);
                 updateClock();
                // startClock();
                 updatePgn();
                 updateStatus();
-               
-                
+
+
             } else {
-                
-                
+
+
                   $('#board .square-55d63').css('background', '');
-                 } 
+                 }
 
                   $('#source').data('val', 0);
-                  
+
               }
 
-            
-            
+
+
             updateStatus();
-             
+
             console.log("You clicked on square: " + square);
       }
 }
@@ -690,11 +672,11 @@ updateStatus();
               cache: false,
               beforeSend: function(request){ return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));},
               success: function(html, window)
-              { 
+              {
                      console.log('disconnected');
               }
               });
-  
+
       console.log('triggered');
       var $refId = {{ $roomId }};
       var gameRef = firebase.database().ref('random-start/' + '{{ $roomId }}' );
@@ -707,7 +689,7 @@ updateStatus();
     };
 
 
-  
+
 
     var gameStartRef = firebase.database().ref('random-start/' + '{{ $roomId }}');
         gameStartRef.on('value', function(snapshot){
@@ -718,17 +700,17 @@ updateStatus();
             window.location = '/play-random';
          }
     });
-    
+
 
     var gameRef = firebase.database().ref('games/' + $refId + '/moves');
     gameRef.on('child_added', function(snapshot) {
-        
+
         stopClock();
 
         console.log(snapshot.val());
-        
+
         source = snapshot.val().from;
-        
+
         target = snapshot.val().to;
 
         var move = game.move({
@@ -737,7 +719,7 @@ updateStatus();
         });
 
 
-        
+
         board.position(game.fen());
 
          $('#board .square-55d63').css('background', '');
@@ -755,7 +737,7 @@ updateStatus();
                $('#board .square-' + source).css('background', background);
                 playAudio();
 
-                updateClock();       
+                updateClock();
 
          startClock();
 
@@ -765,13 +747,13 @@ updateStatus();
     });
 
 
-    
+
 
 
 
     </script>
 
-    @endif 
+    @endif
 
 
     <script type="text/javascript">
@@ -811,14 +793,14 @@ updateStatus();
          }
     });
 
-  
+
   setTimeout(function(){
     console.log('connecting..');
     var fId = {{ $friendId  }};
     var gId = {{ $gameId }};
 
-  
- 
+
+
       if(fId != 0)
       {
 
@@ -832,7 +814,7 @@ updateStatus();
     var opponentId =  aid ==  friendId ? gameId : friendId;
 
     console.log(friendId);
-      
+
         var gameRef = firebase.database().ref('games/' + refId);
         gameRef.set(null);
 
@@ -853,7 +835,7 @@ updateStatus();
 
   @endif
 
-  
+
 
 
 
@@ -882,5 +864,5 @@ updateStatus();
     </script>
 
 
-  
+
 @stop

@@ -3,62 +3,40 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Play with Computer <a href="#"  data-toggle="modal" style="margin-left: 15px;" data-target="#con-close-modal" class="btn btn-primary">
-                                      <i class="fa fa-refresh"></i> Start New Game
-                                   </a></div>   
 
-                <div class="card-body">
-                    <div class="row">
+
                         <script src="/js/chess.js"></script>
 
-                                            <div class="col-sm-8" style="padding: 14px;">
+                        <div>
 
                                                <p style="font-weight: bold;font-size: 22px;"><b>Computer</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
-                                               
-                                                
-                                              <div id="board" style="width: 100%;"></div> 
 
-                                               
+
+                                              <div id="board" style="width: 70vh;"></div>
+
+
                                                 <br>
                                                 <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class=" text-primary" id="time2">0:05:00</span>)</p>
-       
+
 
                                             <br>
 
+
+
                                             </div>
 
-                                            <div class="col-sm-4" style="margin-top: 55px;" id="puzzle-detail">
-
-                                            <h3>Moves:</h3>
-                                            <div id="game-data">
-                                              </div>
-                                            <hr>
-                                            <p style="color: #fff;font-weight: bold;font-size: 22px;"><strong>Status: </strong><span id="status"></span></p>
-                                            
-                                            <hr>                        
-                                            <p>
-                                             
                                               <i id="source" data-val="0" hidden="true"></i>
                                                 <i id="dest" data-val="0" hidden="true"></i>
-                                                
 
-                                                
-                                            </div>
 
-                    </div>
                 </div>
-            </div>
         </div>
-    </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form >   
+      <form >
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Choose Game Preferences</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -117,7 +95,7 @@
 
 
 @section('scripts')
-   
+
     <script src="/js/enginegame.js"></script>
     <script src="/js/smartgame.js"></script>
 
@@ -132,5 +110,5 @@
     <script type="text/javascript">
       $("#con-close-modal").modal()
     </script>
-  
+
 @stop

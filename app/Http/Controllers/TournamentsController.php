@@ -106,6 +106,9 @@ class TournamentsController extends Controller
 
 		}
 
+        auth()->user()->wallet_balance -= $tournament->fees;
+
+        auth()->user()->save();
 
 
     	return redirect('/tournaments/' . $tournament->id);

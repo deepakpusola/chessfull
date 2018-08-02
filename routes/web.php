@@ -56,3 +56,8 @@ Route::get('/matches/{match}/play', 'TournamentsController@play');
 Route::post('/matches/{match}/{status}', 'TournamentsController@updateStatus');
 
 
+Route::get('/profile/wallet', 'WalletController@index');
+Route::post('/wallet/add', 'WalletController@add');
+Route::get('/payment/response/', 'WalletController@response');
+
+
