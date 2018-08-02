@@ -10525,7 +10525,7 @@ body {
 }
 
 .chess-type img {
-  width: 56%;
+  height: 177px;
 }
 
 .navbar-nav.navbar-center li {
@@ -10574,6 +10574,7 @@ body {
 .navbar-nav.navbar-center .btn-success {
   /*box-shadow:0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);*/
   background-color: #5cb85c;
+  border-color: #5cb85c;
 }
 
 .navbar-nav.navbar-center .btn3d:focus {
@@ -10607,5 +10608,93 @@ body {
 .navbar-button .btn3d:focus {
   outline: medium none;
   -moz-outline-style: none;
+}
+
+.form-register input.form-control {
+  border-left: transparent;
+  border-right: transparent;
+  border-top: 0px;
+  padding: 0.700rem 0.75rem;
+}
+
+.form-register input.form-control#password-confirm {
+  border-bottom: 0px;
+}
+
+.form-register input:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #ced4da;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0rem;
+  box-shadow: 0 0 0 0rem;
+}
+
+.form-register {
+  padding: 8px;
+  border-radius: 10px;
+  border: 5px solid #000;
+  background: #fff;
+}
+
+.card-register-content > img {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 19px;
+  width: 60px;
+  margin-top: -11px;
+}
+
+.card-register-content > h2 {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 40px;
+  color: #fff;
+  font-weight: bold;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.card-register-content h3 {
+  font-size: 27px;
+  margin-top: 23px;
+  font-weight: bold;
+  color: #ff4a26;
+}
+
+.register-content {
+  margin-top: 25px;
+}
+
+.register-content img {
+  display: inline-block;
+  margin-top: -27px;
+  margin-right: 10px;
+}
+
+.register-content h2 {
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+}
+
+.timer-section span.time {
+  line-height: 2;
+  color: #fff;
+  padding: 7px;
+  background: radial-gradient(#ffa503, #b37504);
+}
+
+p.timer-section {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 0px;
+  background: orange;
+}
+
+p.timer-section b {
+  padding: 7px;
 }
 

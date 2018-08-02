@@ -9,14 +9,14 @@
 
                         <div>
 
-                                               <p style="font-weight: bold;font-size: 22px;"><b>Computer</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
+                                               <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>Computer</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
 
 
                                               <div id="board" style="width: 70vh;"></div>
 
 
                                                 <br>
-                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class=" text-primary" id="time2">0:05:00</span>)</p>
+                                                <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
 
 
                                             <br>
