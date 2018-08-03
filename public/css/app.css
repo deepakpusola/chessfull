@@ -10417,7 +10417,7 @@ a.text-dark:focus {
 
 html,
 body {
-  background-color: #312e2b;
+  /*background-color: #312e2b;*/
   background: url("/img/back.jpg");
   background-size: cover;
   font-family: 'Nunito', sans-serif;
@@ -10425,7 +10425,7 @@ body {
 }
 
 #app {
-  background-color: rgba(0, 0, 0, 0.4);
+  /*background-color: rgba(0, 0, 0, 0.4);*/
   min-height: 100vh;
 }
 
