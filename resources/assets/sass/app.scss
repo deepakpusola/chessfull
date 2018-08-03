@@ -165,12 +165,14 @@ html, body {
     font-weight: bold;
     font-size: 20px;
 }
-.navbar-button .btn-success {
+.navbar-button .btn3d {
     /*box-shadow:0 0 0 1px #fbbf00 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #fbbf00, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);*/
     background-color:#ff8800;
+
 }
 .navbar-button .btn3d:focus {
     outline:medium none;
+    border:none;
     -moz-outline-style:none;
 }
 .form-register input.form-control{
@@ -247,4 +249,32 @@ p.timer-section {
 }
 p.timer-section b{
     padding: 7px;
+}
+.register-button-section .btn{
+    background-color: #ff8800;
+    color: #fff;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #ff8800;
+    border-color: ff8800;
+}
+.profile-update-section a{
+    color: #fff;
+    width: 100%;
+}
+.profile-card-section{
+    padding: 40px;
+}
+.wallet-card-section h1{
+    color: #ff8800 !important;
+    font-size: 50px;
+    font-weight: bold;
+}
+.wallet-button{
+    margin-top: 20px;
+}
+.card {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: #fff;
 }

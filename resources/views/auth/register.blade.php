@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="card-body ml-5 card-register-content">
+            <div class="card-body card-register-content">
                 <img src="/img/rupee.png">
                 <h2>Cash bonus inside</h2>
                 <h3>The Best Chess Experience</h3>
@@ -29,6 +29,7 @@
                         <div class="card-body">
                             <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                                 @csrf
+
                                     <div class="form-register">
                                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Enter Your Name" required autofocus>
 
@@ -56,9 +57,11 @@
 
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Re-Enter Your Password" required>
                                     </div>
-                                        <button type="submit" class="btn btn-block btn-primary mt-3 btn-lg text-dark">
+                                    <div class="register-button-section">
+                                        <button type="submit" class="btn btn-block mt-3 btn-lg text-dark">
                                             <b>{{ __('Register') }}</b>
                                         </button>
+                                    </div>
                                         <p style="text-align: center;color: #fff;margin-top: 10px;"><a href="" style="color: #fff;"> By registration,you agree to our T&C</a></p>
                             </form>
                         </div>

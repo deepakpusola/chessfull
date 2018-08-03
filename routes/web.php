@@ -40,6 +40,16 @@ Route::get('/play-random/{friendId}/{gameId}', 'PlayRandomController@index');
 
 Route::post('/user/game/stats', 'StatsController@index');
 
+Route::get('/profile','UserController@profile');
+Route::post('/profile','UserController@updateProfile');
+Route::post('/password','UserController@updatePassword');
+
+
+Route::get('/change-password','UserController@password');
+
+Route::get('/wallet','UserController@wallet');
+
+Route::get('/matche','UserController@matche');
 
 Route::get('/tournaments', 'TournamentsController@index');
 

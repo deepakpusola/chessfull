@@ -26,6 +26,21 @@ class UserController extends Controller
         return view('profile.settings');
     }
 
+    public function password()
+    {
+        return view('profile.security');
+    }
+
+     public function wallet()
+    {
+        return view('profile.wallet');
+    }
+
+    public function matche()
+    {
+        return view('profile.matches');
+    }
+
 
     public function updateProfile(Request $request)
     {
@@ -33,7 +48,7 @@ class UserController extends Controller
 
         auth()->user()->update($request->all());
 
-        flash('Your Profile was updated successfully')->success();
+   //     flash('Your Profile was updated successfully')->success();
 
 
         return back();
@@ -50,7 +65,7 @@ class UserController extends Controller
           $password = $request->get('password');
           if(!\Hash::check($old_password, auth()->user()->password))
           {
-             flash('Please enter your current password correct!')->success();
+     //        flash('Please enter your current password correct!')->success();
 
               return back();
           }

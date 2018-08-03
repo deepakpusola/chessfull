@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -46,12 +47,14 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    @auth
                     <ul class="nav navbar-nav navbar-center m-auto">
                         <li style="margin-top: 13px;"><a href=""></a><img src="/img/rupee.png" alt="logos"></li>
-                        <li style="" class="text-list"><a href="#" class="text-style">14.3</a></li>
+                        <li style="" class="text-list"><a href="#" class="text-style">{{ auth()->user()->wallet_balance }}</a></li>
 
                         <li> <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" > Add Cash</button></li>
                     </ul>
+                    @endauth
                     <ul class="navbar-nav ml-auto" style="margin-top:12px;">
                         <!-- Authentication Links -->
 
@@ -63,13 +66,26 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
-                            <li class="nav-item dropdown navbar-button">
-                                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" >My Account</button>
+                            <!-- <li class="nav-item  navbar-button">
+                                <a id="navbarDropdown" class="nav-link" href="/profile" role="button"  aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <button type="button" class="btn  btn3d" >My Profile</button> -->
+                                   <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
+                                <!-- </a>
+                            </li> -->
+                            <li class="nav-item dropdown navbar-button register-button-section">
+                                <a id="navbarDropdown" class="nav-link" href="/profile" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <button type="button" class="btn btn3d">My Profile</button>
                                    <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
                                 </a>
+                                <li style="margin-top: 8px;margin-left: -18px;">
+                                <a class="nav-link" href="{{ route('logout') }}"   onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();" id="settings"><i class="fa fa-power-off"></i></a>
+                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                          </form>
+                        </li>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -79,7 +95,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
+                                </div> -->
                             </li>
                         @endguest
                     </ul>

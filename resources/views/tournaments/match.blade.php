@@ -3,17 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Tournament Match </div>
 
-                <div class="card-body">
-                    <div class="row">
+                    <div >
                         <script src="/js/chess.js"></script>
 
-                                            <div class="col-sm-8" style="padding: 14px;">
 
-                                              <button onclick="closeGame()">Close Game</button>
 
                                                <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
 
@@ -29,30 +23,14 @@
 
                                             </div>
 
-                                            <div class="col-sm-4" style="margin-top: 55px;" id="puzzle-detail">
-
-                                            <h3>Moves:</h3>
-                                            <div id="game-data">
-                                              </div>
-                                            <hr>
-                                            <p style="color: #fff;font-weight: bold;font-size: 22px;"><strong>Status: </strong><span id="status"></span></p>
-
-                                            <hr>
-                                            <p>
 
                                               <i id="source" data-val="0" hidden="true"></i>
                                                 <i id="dest" data-val="0" hidden="true"></i>
 
-
-
-                                            </div>
-
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

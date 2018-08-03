@@ -11,14 +11,14 @@
 
 
 
-                                               <p style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> (<span class="text-primary" id="time1">0:05:00</span>)</p>
+                                               <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
 
 
                                               <div id="board" style="width: 70vh;"></div>
 
 
                                                 <br>
-                                                <p  style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> (<span class="text-primary" id="time2">0:05:00</span>)</p>
+                                                <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
 
 
                                             <br>
@@ -74,6 +74,10 @@
 
 
 @section('scripts')
+
+<script src="/js/enginegame.js"></script>
+    <script src="/js/smartgame.js"></script>
+
 
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 
