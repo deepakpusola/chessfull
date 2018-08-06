@@ -7,7 +7,9 @@
             <div class="card-body card-register-content">
                 <img src="/img/rupee.png">
                 <h2>Cash bonus inside</h2>
+                <div class="cash">
                 <h3>The Best Chess Experience</h3>
+                </div>
                 <div class="register-content">
                     <img src="/img/chess.png">
                     <h2>Play chess on mobile</h2>

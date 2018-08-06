@@ -10749,10 +10749,6 @@ p.timer-section b {
     margin-top: 40px !important;
   }
 
-  #app {
-    overflow-y: hidden;
-  }
-
   .chess-type img {
     height: 110px;
   }
@@ -10794,8 +10790,11 @@ p.timer-section b {
   }
 
   .card-register-content img,
-  h2,
-  h3 {
+  h2 {
+    display: none !important;
+  }
+
+  .card-register-content .cash h3 {
     display: none !important;
   }
 }

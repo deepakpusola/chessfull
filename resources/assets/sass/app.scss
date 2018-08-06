@@ -291,9 +291,7 @@ and (orientation : landscape){
   .chess-type {
     margin-top: 40px !important;
   }
-#app{
-    overflow-y: hidden;
-}
+
 
   .chess-type img {
     height: 110px;
@@ -324,10 +322,11 @@ and (orientation : landscape){
   }
   .navbar-nav.navbar-center .text-center{
     text-align: none !important;
+}
+.card-register-content img,h2{
+    display: none !important;
  }
-
- //registration
- .card-register-content img,h2,h3{
+ .card-register-content .cash h3{
     display: none !important;
  }
 
