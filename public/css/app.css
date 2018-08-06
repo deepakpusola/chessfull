@@ -10749,6 +10749,10 @@ p.timer-section b {
     margin-top: 40px !important;
   }
 
+  #app {
+    overflow-y: hidden;
+  }
+
   .chess-type img {
     height: 110px;
   }
@@ -10762,7 +10766,7 @@ p.timer-section b {
 
   #app {
     /*background-color: rgba(0, 0, 0, 0.4);*/
-    min-height: 0;
+    min-height: 0 !important;
   }
 
   .mt-5,
@@ -10787,6 +10791,12 @@ p.timer-section b {
 
   .navbar-nav.navbar-center .text-center {
     text-align: none !important;
+  }
+
+  .card-register-content img,
+  h2,
+  h3 {
+    display: none !important;
   }
 }
 
