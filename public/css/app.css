@@ -10704,6 +10704,10 @@ p.timer-section b {
   color: #fff;
 }
 
+.register-button-section img {
+  margin-top: 11px;
+}
+
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
@@ -10735,7 +10739,30 @@ p.timer-section b {
   color: #fff;
 }
 
+.navbar-brand-logo-hide img {
+  display: none !important;
+}
+
 @media screen and (min-device-width: 480px) and (max-device-width: 640px) and (orientation: landscape) {
+  .navbar-brand-logo-hide img {
+    display: block !important;
+  }
+
+  .navbar-brand-logo-visible img {
+    display: none !important;
+  }
+
+  .navbar-brand-logo-hide img {
+    width: 56px;
+    margin-right: 89px;
+    margin-left: 30px;
+  }
+
+  .navbar-nav.navbar-center .text-style {
+    font-size: 22px;
+    margin-left: auto;
+  }
+
   .chess-type .text-center {
     margin-bottom: 50px;
   }
@@ -10745,12 +10772,57 @@ p.timer-section b {
     color: #fff;
   }
 
+  .login-register {
+    margin-left: 183px;
+  }
+
   .chess-type {
     margin-top: 40px !important;
   }
 
   .chess-type img {
     height: 110px;
+  }
+
+  ul.navbar-nav.login-navbar {
+    display: inline-block !important;
+  }
+
+  .navbar-nav.navbar-center .btn {
+    margin-left: 10px !important;
+  }
+
+  ul.navbar-center li > button {
+    width: 100px !important;
+    font-size: 16px !important;
+  }
+
+  ul.navbar-center li {
+    display: inline-block;
+  }
+
+  .navbar-nav.navbar-center li {
+    margin-left: 5px !important;
+  }
+
+  .navbar-nav mr-auto {
+    display: inline-block !important;
+  }
+
+  ul.nav .navbar-nav .navbar-center {
+    display: inline-block !important;
+  }
+
+  .navbar-nav.navbar-center .text-list {
+    display: inline-block !important;
+  }
+
+  nav .navbar-nav .navbar-center li {
+    display: inline-block !important;
+  }
+
+  navbar-nav .ml-auto .login-navbar {
+    display: inline-block !important;
   }
 
   .navbar-expand-md .navbar-nav {
@@ -10763,6 +10835,10 @@ p.timer-section b {
   #app {
     /*background-color: rgba(0, 0, 0, 0.4);*/
     min-height: 0 !important;
+  }
+
+  .collapse:not(.show) {
+    display: block;
   }
 
   .mt-5,
@@ -10796,6 +10872,23 @@ p.timer-section b {
 
   .card-register-content .cash h3 {
     display: none !important;
+  }
+
+  li.register-button-section img {
+    margin-top: 7px !important;
+    margin-left: 100px !important;
+    width: 40px !important;
+    font-size: 16px !important;
+    margin-left: 20px;
+  }
+
+  .navbar-collapse {
+    -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+  }
+
+  .card-body {
+    padding: 0.25rem;
   }
 }
 

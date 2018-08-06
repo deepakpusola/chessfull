@@ -33,14 +33,17 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand-logo-visible" href="{{ url('/') }}">
                    <img src="/img/logo.png" style="width: 190px;margin-top: 13px;">
                 </a>
-                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <a class="navbar-brand-logo-hide" href="{{ url('/') }}">
+                   <img src="/img/crown.png">
+                </a>
+               <!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button> -->
 
-                <div class="" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
@@ -48,18 +51,18 @@
 
                     <!-- Right Side Of Navbar -->
                     @auth
-                    <ul class="nav navbar-nav navbar-center m-auto">
-                        <li style="margin-top: 13px;"><a href=""></a><img src="/img/rupee.png" alt="logos"></li>
-                        <li style="" class="text-list"><a href="#" class="text-style">{{ auth()->user()->wallet_balance }}</a></li>
+                    <ul class="nav navbar-nav navbar-center m-auto" style="display: inline-block;">
+                        <li class="logo-nav" style="margin-top: 13px;display: inline-block;"><a href=""></a><img src="/img/rupee.png" alt="logos"></li>
+                        <li style="display: inline-block;" class="text-list"><a href="#" class="text-style">{{ auth()->user()->wallet_balance }}</a></li>
 
-                        <li> <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" > Add Cash</button></li>
+                        <li style="display: inline-block;"> <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" > Add Cash</button></li>
                     </ul>
                     @endauth
-                    <ul class="navbar-nav ml-auto" style="margin-top:12px;">
+                    <ul class="navbar-nav ml-auto login-navbar" style="margin-top:12px;">
                         <!-- Authentication Links -->
 
                         @guest
-                            <li class="nav-item pull-left">
+                            <li class="nav-item pull-left login-register">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             <li class="nav-item pull-left">
@@ -72,18 +75,19 @@
                                    <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
                                 <!-- </a>
                             </li> -->
-                            <li class="nav-item dropdown navbar-button register-button-section">
-                                <a id="navbarDropdown" class="nav-link" href="/profile" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <button type="button" class="btn btn3d">My Profile</button>
+                            <li class="navbar-button register-button-section" style="display: inline-block;">
+                                <a class="nav-link" href="/profile" >
+                                    <!-- <button type="button" class="btn btn3d">My Profile</button> -->
+                                    <img src="/img/man.png" alt="user">
                                    <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
                                 </a>
-                                <li style="margin-top: 8px;margin-left: -18px;">
+                              <!--   <li style="margin-top: 8px;margin-left: -18px;">
                                 <a class="nav-link" href="{{ route('logout') }}"   onclick="event.preventDefault();
                                       document.getElementById('logout-form').submit();" id="settings"><i class="fa fa-power-off"></i></a>
                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                           </form>
-                        </li>
+                        </li> -->
 
                                 <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
