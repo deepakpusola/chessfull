@@ -10743,6 +10743,10 @@ p.timer-section b {
   display: none !important;
 }
 
+.play-game-container-resopnsive {
+  display: none !important;
+}
+
 @media screen and (min-device-width: 480px) and (max-device-width: 640px) and (orientation: landscape) {
   .navbar-brand-logo-hide img {
     display: block !important;
@@ -10889,6 +10893,68 @@ p.timer-section b {
 
   .card-body {
     padding: 0.25rem;
+  }
+
+  play-game-container {
+    width: 970px;
+    max-width: none !important;
+  }
+
+  .play-game-container #board {
+    float: left !important;
+  }
+
+  .play-game-container p.timer-section {
+    float: right;
+    margin-left: 72px;
+    padding: 0px;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .play-game-container p.user-timer-section {
+    margin-top: -178px;
+  }
+
+  p.computer-timer-section {
+    position: absolute;
+    right: 0;
+    left: 100vh;
+  }
+
+  p.computer-timer-section b {
+    padding: 32px;
+  }
+
+  p.user-timer-section {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0px;
+  }
+
+  .play-game-container-resopnsive {
+    display: block !important;
+  }
+
+  .play-game-container {
+    display: none !important;
+  }
+
+  .play-game-container-resopnsive .board-go-to-home {
+    position: absolute;
+    top: 155px;
+    left: 132vh;
+  }
+
+  .play-game-container-resopnsive .board-go-to-home img.go-to-home {
+    width: 50px;
+  }
+
+  .play-game-container-resopnsive .board-go-to-home p {
+    font-size: 17px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
   }
 }
 

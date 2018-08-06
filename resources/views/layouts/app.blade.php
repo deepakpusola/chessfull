@@ -31,6 +31,8 @@
 </head>
 <body>
     <div id="app">
+
+       @if(!request()->is('play-*'))
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand-logo-visible" href="{{ url('/') }}">
@@ -106,6 +108,7 @@
                 </div>
             </div>
         </nav>
+       @endif
 
         <main class="py-5 mt-5">
             @yield('content')
