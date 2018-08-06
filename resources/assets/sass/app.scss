@@ -278,3 +278,54 @@ p.timer-section b{
     background-color: rgba(0, 0, 0, 0.5) !important;
     color: #fff;
 }
+@media screen and (min-device-width : 480px)
+and (max-device-width : 640px)
+and (orientation : landscape){
+  .chess-type .text-center{
+    margin-bottom: 50px;
+  }
+  .chess-type a h3 {
+    font-size: 25px;
+    color: #fff;
+  }
+  .chess-type {
+    margin-top: 40px !important;
+  }
+
+
+  .chess-type img {
+    height: 110px;
+  }
+  .navbar-toggler{
+  }
+  .navbar-expand-md .navbar-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+   }
+   #app {
+    /*background-color: rgba(0, 0, 0, 0.4);*/
+    min-height: 0;
+  }
+  .mt-5, .my-5 {
+     margin-top: 0px !important;
+    }
+  .pt-5, .py-5 {
+     padding-top:0px !important;
+    }
+    pb-5, .py-5 {
+     padding-bottom: 0 !important;
+   }
+   .pt-5, .py-5 {
+    padding-top: 0 !important;
+  }
+  .navbar-nav.navbar-center .text-center{
+    text-align: none !important;
+}
+
+
+
+
+}
+
