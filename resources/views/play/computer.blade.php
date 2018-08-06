@@ -44,7 +44,7 @@
          <div class="col-xs-6">
           <p class="timer-section computer-timer-section" style="font-weight: bold;font-size: 22px;"><b>Computer</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
             <br>
-            <a href="#">
+            <a href="/">
             <div class="board-go-to-home">
               <img src="/img/icon.png" class="go-to-home" alt="user">
               <p>Resign</p>
