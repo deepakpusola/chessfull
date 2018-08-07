@@ -34,7 +34,7 @@
                 </div>
         </div> -->
 
-<div class="container-fluid play-game-container-resopnsive">
+<div class="container-fluid play-game-container-resopnsive" style="display: none;">
   <script src="/js/chess.js"></script>
   <div class="row">
      <div class="col-xs-6">
@@ -42,7 +42,7 @@
          </div>
        </div>
          <div class="col-xs-6">
-          <p class="timer-section computer-timer-section" style="font-weight: bold;font-size: 22px;"><b>Computer</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
+          <p class="timer-section computer-timer-section computer-time-filed" style=""><b>Computer</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
             <br>
             <a href="/">
             <div class="board-go-to-home">
@@ -50,7 +50,7 @@
               <p>Resign</p>
             </div>
           </a>
-             <p class="timer-section user-timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
+             <p class="timer-section user-timer-section" style=""><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
        </div>
        <i id="source" data-val="0" hidden="true"></i>
       <i id="dest" data-val="0" hidden="true"></i>

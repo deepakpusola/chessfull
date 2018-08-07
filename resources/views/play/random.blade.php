@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<!-- <div class="container">
     <div class="row justify-content-center">
 
 
@@ -33,7 +33,30 @@
 
                     </div>
                 </div>
+            </div> -->
+
+<div class="container-fluid play-game-container-resopnsive" style="display: none;">
+  <script src="/js/chess.js"></script>
+  <div class="row">
+     <div class="col-xs-6">
+       <div id="board" style="width: 100vh;">
+         </div>
+       </div>
+         <div class="col-xs-6">
+          <p class="timer-section computer-timer-section" style=""><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
+            <br>
+            <a href="/">
+            <div class="board-go-to-home">
+              <img src="/img/icon.png" class="go-to-home" alt="user">
+              <p>Resign</p>
             </div>
+          </a>
+              <p class="timer-section user-timer-section" style=""><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
+       </div>
+       <i id="source" data-val="0" hidden="true"></i>
+      <i id="dest" data-val="0" hidden="true"></i>
+     </div>
+  </div>
 
 
 <!-- Modal -->

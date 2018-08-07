@@ -8,7 +8,7 @@
                 <div class="card-header" style="font-size: 22px;">Live Tournaments</div>
 
                 <div class="card-body">
-                   <table class="table table-striped">
+                   <table class="table table-striped custom-table">
                     <thead>
                         <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
                             <th>Name</th>
@@ -19,12 +19,8 @@
                         </tr>
                     </thead>
                   <tbody>
-
-                   @foreach($live as $tournament) 
-                    <tr style="background: #fff;
-    color: #000;
-    font-size: 22px;
-    font-weight: 700;">
+                   @foreach($live as $tournament)
+                    <tr>
                       <td><a href="/tournaments/{{$tournament->id}}" style="color: #000;">{{ $tournament->name }}</a></td>
                        <td>{{ count($tournament->players) }}</td>
                         <td>{{ $tournament->starttime }}</td>
@@ -34,7 +30,7 @@
                    @endforeach
                   </tbody>
                 </table>
-                   
+
                 </div>
             </div>
         </div>
@@ -63,7 +59,7 @@
                     </thead>
                   <tbody>
 
-                   @foreach($upcoming as $tournament) 
+                   @foreach($upcoming as $tournament)
                     <tr style="background: #fff;
     color: #000;
     font-size: 22px;
@@ -78,7 +74,7 @@
                   </tbody>
                 </table>
 
-                   
+
                 </div>
             </div>
         </div>
@@ -107,7 +103,7 @@
                     </thead>
                   <tbody>
 
-                   @foreach($closed as $tournament) 
+                   @foreach($closed as $tournament)
                     <tr style="background: #fff;
                       color: #000;
                       font-size: 22px;
@@ -122,7 +118,7 @@
                   </tbody>
                 </table>
 
-                   
+
                 </div>
             </div>
         </div>

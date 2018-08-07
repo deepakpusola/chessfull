@@ -10739,12 +10739,25 @@ p.timer-section b {
   color: #fff;
 }
 
+p.computer-timer-section {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+table.custom-table tbody tr {
+  background: #fff !important;
+  color: #000 !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+}
+
 .navbar-brand-logo-hide img {
   display: none !important;
 }
 
-.play-game-container-resopnsive {
-  display: none !important;
+.modal-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
 @media screen and (min-device-width: 480px) and (max-device-width: 640px) and (orientation: landscape) {
@@ -10900,30 +10913,10 @@ p.timer-section b {
     max-width: none !important;
   }
 
-  .play-game-container #board {
-    float: left !important;
-  }
-
-  .play-game-container p.timer-section {
-    float: right;
-    margin-left: 72px;
-    padding: 0px;
-    display: inline-block;
-    width: 100%;
-  }
-
-  .play-game-container p.user-timer-section {
-    margin-top: -178px;
-  }
-
   p.computer-timer-section {
     position: absolute;
     right: 0;
-    left: 100vh;
-  }
-
-  p.computer-timer-section b {
-    padding: 32px;
+    width: 280px;
   }
 
   p.user-timer-section {
@@ -10956,5 +10949,67 @@ p.timer-section b {
     font-weight: bold;
     text-align: center;
   }
+
+  p.computer-timer-section {
+    font-size: 17px;
+    padding: 6px 0;
+    width: 280px;
+  }
+
+  p.timer-section .computer-timer-section b {
+    padding: 3px;
+  }
+
+  p.computer-timer-section span.time {
+    padding: 7px;
+    padding-bottom: 12px;
+    padding-right: 15px;
+    padding-top: 11px;
+  }
+
+  p.computer-time-filed span.time {
+    margin-left: 93px !important;
+  }
+
+  p.user-timer-section {
+    font-size: 17px;
+    padding: 6px 0;
+    width: 280px;
+  }
+
+  p.timer-section .user-timer-section b {
+    padding: 3px;
+  }
+
+  p.user-timer-section span.time {
+    padding: 11px;
+    padding-bottom: 12px;
+    padding-right: 15px;
+    margin-left: 45px;
+  }
+
+  .modal-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+
+  #board {
+    margin-top: 2px;
+  }
+
+  table.custom-table tbody tr {
+    font-size: 14px !important;
+  }
+
+  /*p.timer-section b {
+    display: inline-block;
+}
+.timer-section span.time {
+    padding: 9px;
+}*/
+
+  /*p.timer-section b {
+    padding: 3px;
+}*/
 }
 
