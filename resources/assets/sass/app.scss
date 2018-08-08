@@ -459,13 +459,13 @@ p.user-timer-section{
 p.computer-timer-section{
     font-size: 17px;
     padding: 6px 0;
-    width: 280px;
+    /*width: 280px;*/
 }
 p.timer-section .computer-timer-section b {
     padding: 3px;
 }
 p.computer-timer-section span.time {
-    padding: 7px;
+    /*padding: 7px;*/
     padding-bottom: 12px;
     padding-right: 15px;
     padding-top: 11px;
@@ -476,10 +476,10 @@ p.computer-time-filed span.time{
 p.user-timer-section{
     font-size: 17px;
     padding: 6px 0;
-    width: 280px;
+    /*width: 280px;*/
 }
-p.timer-section .user-timer-section b {
-    padding: 3px;
+.user-timer-section b {
+    /*padding: 3px !important;*/
 }
 p.user-timer-section span.time {
     padding: 11px;
