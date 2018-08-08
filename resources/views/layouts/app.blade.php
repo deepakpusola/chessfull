@@ -53,7 +53,7 @@
 
                     <!-- Right Side Of Navbar -->
                     @auth
-                    <ul class="nav navbar-nav navbar-center m-auto" style="display: inline-block;">
+                    <ul class="nav navbar-nav navbar-center navbar-add-cash-responsive" style="display: inline-block;">
                         <li class="logo-nav" style="margin-top: 13px;display: inline-block;"><a href=""></a><img src="/img/rupee.png" alt="logos"></li>
                         <li style="display: inline-block;" class="text-list"><a href="#" class="text-style">{{ auth()->user()->wallet_balance }}</a></li>
 
