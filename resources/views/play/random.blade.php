@@ -41,7 +41,7 @@
          </div>
        </div>
          <div class="col-xs-6">
-          <p class="timer-section computer-timer-section" style=""><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
+          <p class="timer-section computer-timer-section" style=""><b>{{ isset($opponent) ? str_limit($opponent->name, 9)  : 'Waiting..' }}</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
             <br>
             <a href="/">
             <div class="board-go-to-home">
@@ -49,7 +49,7 @@
               <p>Resign</p>
             </div>
           </a>
-              <p class="timer-section user-timer-section" style=""><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
+              <p class="timer-section user-timer-section" style=""><b>{{ str_limit(Auth::user()->name, 9) }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
        </div>
        <i id="source" data-val="0" hidden="true"></i>
       <i id="dest" data-val="0" hidden="true"></i>

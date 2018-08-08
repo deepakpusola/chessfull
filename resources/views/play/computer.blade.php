@@ -50,7 +50,7 @@
               <p>Resign</p>
             </div>
           </a>
-             <p class="timer-section user-timer-section" style=""><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
+             <p class="timer-section user-timer-section" style=""><b>{{ str_limit(Auth::user()->name, 9) }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
        </div>
        <i id="source" data-val="0" hidden="true"></i>
       <i id="dest" data-val="0" hidden="true"></i>
