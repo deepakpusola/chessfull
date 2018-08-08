@@ -11053,6 +11053,11 @@ table.custom-table tbody tr {
     padding: 2px;
   }
 
+  .responsive-tournamet-section .table th,
+  .table td {
+    border-top: none !important;
+  }
+
   .tournamet-desktop-view {
     display: none;
   }
