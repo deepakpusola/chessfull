@@ -11045,6 +11045,10 @@ table.custom-table tbody tr {
     font-size: 17px !important;
   }
 
+  .responsive-profile {
+    display: block !important;
+  }
+
   /*p.timer-section b {
     display: inline-block;
 }
