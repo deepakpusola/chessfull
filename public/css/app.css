@@ -10915,8 +10915,6 @@ table.custom-table tbody tr {
 
   p.computer-timer-section {
     position: absolute;
-    right: 0;
-    width: 280px;
   }
 
   p.user-timer-section {
@@ -10953,7 +10951,6 @@ table.custom-table tbody tr {
   p.computer-timer-section {
     font-size: 17px;
     padding: 6px 0;
-    /*width: 280px;*/
   }
 
   p.timer-section .computer-timer-section b {
@@ -10961,30 +10958,29 @@ table.custom-table tbody tr {
   }
 
   p.computer-timer-section span.time {
-    /*padding: 7px;*/
+    padding: 7px;
     padding-bottom: 12px;
     padding-right: 15px;
     padding-top: 11px;
   }
 
   p.computer-time-filed span.time {
-    margin-left: 93px !important;
+    margin-left: 80px !important;
   }
 
   p.user-timer-section {
     font-size: 17px;
     padding: 6px 0;
-    /*width: 280px;*/
   }
 
   .user-timer-section b {
-    /*padding: 3px !important;*/
+    padding: 5px !important;
   }
 
   p.user-timer-section span.time {
     padding: 11px;
     padding-bottom: 12px;
-    padding-right: 15px;
+    padding-right: 9px;
     margin-left: 45px;
   }
 
