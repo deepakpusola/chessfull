@@ -21,7 +21,7 @@
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="col-md-12 responsive-tournamet-section">
                 <div class="card">
-                    <div class="card-header" style="font-size: 22px;">Live Tournaments</div>
+                    <!-- <div class="card-header" style="font-size: 22px;">Live Tournaments</div> -->
 
                     <div class="card-body">
                        <table class="table table-striped custom-table">
@@ -54,7 +54,7 @@
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
            <div class="col-md-12 responsive-tournamet-section">
               <div class="card">
-                  <div class="card-header" style="font-size: 22px;">Upcoming Tournaments</div>
+                  <!-- <div class="card-header" style="font-size: 22px;">Upcoming Tournaments</div> -->
 
                   <div class="card-body">
                       @if (session('status'))
@@ -96,7 +96,7 @@
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
           <div class="col-md-12 responsive-tournamet-section">
               <div class="card">
-                  <div class="card-header" style="font-size: 22px;">Closed Tournaments</div>
+                  <!-- <div class="card-header" style="font-size: 22px;">Closed Tournaments</div> -->
 
                   <div class="card-body">
                       @if (session('status'))
