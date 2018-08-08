@@ -11005,7 +11005,7 @@ table.custom-table tbody tr {
   }
 
   table.custom-table tbody tr {
-    font-size: 19px !important;
+    font-size: 17px !important;
     color: #fff !important;
     background: transparent !important;
   }
@@ -11049,15 +11049,12 @@ table.custom-table tbody tr {
     display: block !important;
   }
 
-  /*p.timer-section b {
-    display: inline-block;
-}
-.timer-section span.time {
-    padding: 9px;
-}*/
+  .responsive-tournamet-section {
+    padding: 2px;
+  }
 
-  /*p.timer-section b {
-    padding: 3px;
-}*/
+  .tournamet-desktop-view {
+    display: none;
+  }
 }
 

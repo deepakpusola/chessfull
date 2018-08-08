@@ -500,7 +500,7 @@ p.user-timer-section span.time {
     margin-top: 2px;
 }
 table.custom-table tbody tr {
-    font-size: 19px !important;
+    font-size: 17px !important;
     color: #fff !important;
     background: transparent !important;
 }
@@ -534,18 +534,12 @@ table.custom-table tbody tr td a {
 .responsive-profile{
     display: block !important;
 }
-
-/*p.timer-section b {
-    display: inline-block;
+.responsive-tournamet-section{
+    padding: 2px;
 }
-.timer-section span.time {
-    padding: 9px;
-}*/
-/*p.timer-section b {
-    padding: 3px;
-}*/
-
-
+.tournamet-desktop-view{
+    display: none;
+}
 
 }
 
