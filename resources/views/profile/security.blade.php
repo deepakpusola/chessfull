@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-4 profile-hidden">
             <div class="card">
                 <div class="card-body profile-card-section">
                     <nav class="nav flex-column nav-pills profile-update-section" id="nav">
@@ -20,8 +20,24 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid responsive-profile">
+            <ul class="nav nav-pills nav-fill">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/profile"><i class="fa fa-user"></i> Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/change-password"><i class="fa fa-key"></i> Change Password</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/wallet"><i class="fa fa-google-wallet" aria-hidden="true"></i> Wallet</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/matche"><i class="fa fa-gamepad"></i> Matches</a>
+                  </li>
+            </ul>
+        </div>
         <div class="col-md-8">
-            <div class="card">
+            <div class="card responsive-card-profile">
                 <div class="card-body profile-card-section">
                     <form method="POST" action="/password">
                         @csrf

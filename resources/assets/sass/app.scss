@@ -507,6 +507,27 @@ table.custom-table thead{
 table.custom-table tbody tr td a {
     color: #fff !important;
 }
+.profile-hidden {
+    display: none !important;
+}
+.responsive-profile ul li a{
+    padding: 5px !important;
+    font-size: 17px !important;
+}
+.responsive-profile ul li{
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+.responsive-card-profile{
+    padding: 15px 25px;
+}
+.wallet-card-section h1 {
+    font-size: 40px;
+}
+.profile-matches-tab ul li a{
+    padding: 5px !important;
+    font-size: 17px !important;
+}
 
 /*p.timer-section b {
     display: inline-block;
