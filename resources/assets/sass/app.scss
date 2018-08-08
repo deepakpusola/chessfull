@@ -291,6 +291,12 @@ table.custom-table tbody tr{
     font-size: 22px !important;
     font-weight: 700 !important;
 }
+.custom-table thead tr{
+    background: #ccc;
+    color: #000;
+    font-weight: 500;
+    font-size: 17px;
+}
 .navbar-brand-logo-hide img{
     display: none !important;
 }
@@ -491,8 +497,17 @@ p.user-timer-section span.time {
     margin-top: 2px;
 }
 table.custom-table tbody tr {
-    font-size: 14px !important;
+    font-size: 19px !important;
+    color: #fff !important;
+    background: transparent !important;
 }
+table.custom-table thead{
+    display: none !important;
+}
+table.custom-table tbody tr td a {
+    color: #fff !important;
+}
+
 /*p.timer-section b {
     display: inline-block;
 }

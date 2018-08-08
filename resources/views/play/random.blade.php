@@ -27,8 +27,6 @@
 
 
 
-                                             <i id="source" data-val="0" hidden="true"></i>
-                                                <i id="dest" data-val="0" hidden="true"></i>
 
 
                     </div>
@@ -98,8 +96,7 @@
 
 @section('scripts')
 
-<script src="/js/enginegame.js"></script>
-    <script src="/js/smartgame.js"></script>
+
 
 
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
@@ -163,7 +160,7 @@
         min -= hours * 60;
         var display = hours + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
         if(isRunning) {
-            display += sec & 1 ? ' <--' : ' <-';
+            display += sec & 1 ? ' *' : ' *';
         }
         $(id).text(display);
     }
