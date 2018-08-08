@@ -10781,14 +10781,14 @@ table.custom-table tbody tr {
   }
 
   ul.navbar-add-cash-responsive {
-    margin-left: 175px !important;
+    margin-left: 160px !important;
   }
 
   .navbar-brand-logo-hide img {
     width: 56px;
     position: absolute;
     top: 19px;
-    left: 45px;
+    left: 50px;
     /*margin-right: 89px;*/
     /*margin-left: 30px;*/
   }
