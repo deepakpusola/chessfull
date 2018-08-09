@@ -10928,6 +10928,7 @@ table.custom-table tbody tr {
 
   .card-body {
     padding: 0.25rem;
+    padding-bottom: 0px;
   }
 
   play-game-container {
