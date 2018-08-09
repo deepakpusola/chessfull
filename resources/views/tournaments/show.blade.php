@@ -43,7 +43,7 @@
 
 
           @if(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
-            <div class="card mb-4">
+            <div class="card tournamet-card">
                 <div class="card-header" style="font-size: 22px;">My Matches</div>
 
                 <div class="card-body">
@@ -96,7 +96,7 @@
 
             @if($tournament->closed)
 
-                <div class="card mb-4">
+                <div class="card tournamet-card">
                 <div class="card-header" style="font-size: 22px;">Winners</div>
 
                 <div class="card-body">
@@ -135,7 +135,7 @@
 
             @endif
 
-            <div class="card">
+            <div class="card tournamet-card">
                 <div class="card-header" style="font-size: 22px;">Members Enrolled</div>
 
                 <div class="card-body">
