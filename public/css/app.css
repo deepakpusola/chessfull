@@ -10758,6 +10758,10 @@ table.custom-table tbody tr {
   font-size: 17px;
 }
 
+.tournamet-card .card-body a.btn {
+  width: 100%;
+}
+
 .responsive-profile {
   display: none !important;
 }

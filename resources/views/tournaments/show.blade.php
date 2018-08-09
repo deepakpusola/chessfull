@@ -25,7 +25,7 @@
                     @elseif(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
                        <a href="#" class="btn btn-primary btn-lg disabled" style="width: 100%;">Enrolled</a>
                     @else
-                        <a href="#" class="btn btn-danger btn-lg disabled" style="width: 100%;">Closed</a>
+                        <a href="#" class="btn btn-danger btn-lg disabled">Closed</a>
                     @endif
 
                 </div>
