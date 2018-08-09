@@ -53,7 +53,7 @@
                         </div>
                     @endif
 
-                      <table class="table table-striped">
+                      <table class="table table-striped custom-table">
                     <thead>
                         <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
                             <th>Opponent Name</th>
@@ -109,7 +109,7 @@
                         </div>
                     @endif
 
-                      <table class="table table-striped">
+                      <table class="table table-striped custom-table">
                     <thead>
                         <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
                             <th>Player Name</th>
