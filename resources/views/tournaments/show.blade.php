@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card">
+            <div class="card tournamet-card">
                 <div class="card-header" style="font-size: 22px;">Tournament Info
                   @if($tournament->is_live)
                     <span class="badge badge-warning" style="margin-left: 7px;">Live</span>

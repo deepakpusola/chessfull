@@ -11068,5 +11068,27 @@ table.custom-table tbody tr {
   .tournamet-desktop-view {
     display: none;
   }
+
+  .tournamet-card {
+    margin-top: 25px;
+    padding: 0px;
+  }
+
+  .tournamet-card .card-body {
+    padding: 20px;
+    padding-bottom: 0px;
+    margin-bottom: -21px;
+  }
+
+  .tournamet-card .card-body h4 {
+    font-size: 20px;
+    width: 50%;
+    display: inline-block;
+  }
+
+  .tournamet-card .card-body a.btn {
+    width: 48%;
+    float: right;
+  }
 }
 
