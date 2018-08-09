@@ -36,7 +36,7 @@
                   </li>
             </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 responsive-profile-tab">
             <div class="card responsive-card-profile">
                 <div class="card-body profile-card-section">
                     <form method="POST" action="/password">

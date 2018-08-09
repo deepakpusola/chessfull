@@ -321,7 +321,7 @@ table.custom-table tbody tr{
     color: #fff;
 }
 @media screen and (min-device-width : 480px)
-and (max-device-width : 768px)
+and (max-device-width : 767px)
 and (orientation : landscape){
     .navbar-brand-logo-hide img{
     display: block !important;
@@ -337,8 +337,6 @@ ul.navbar-add-cash-responsive{
      position: absolute;
      top: 19px;
      left: 60px;
-    /*margin-right: 89px;*/
-    /*margin-left: 30px;*/
 }
 .navbar-nav.navbar-center .text-style {
     font-size: 19px;
@@ -592,7 +590,160 @@ table.custom-table tbody tr td a {
     margin-top: -100px;
     float: right;
 }
+}
+@media screen and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape){
+    .navbar-brand-logo-hide img{
+    display: block !important;
+    }
+    li.user-logout-section {
+    right: 20px;
+    }
+    .navbar-brand-logo-visible img{
+        display: none !important;
+    }
+    .navbar-brand-logo-hide img{
+     width: 56px;
+     position: absolute;
+     top: 19px;
+     left: 60px;
+    }
 
+    li.register-button-section img {
+        right: 100px;
+    }
+    .responsive-profile ul li a{
+    padding: 5px !important;
+    font-size: 17px !important;
+    }
+    .responsive-profile ul li a.nav-link{
+        margin-right: 0px !important;
+    }
+    .responsive-profile ul li{
+        margin-top: 8px;
+        margin-bottom: 12px;
+    }
+    .responsive-profile{
+        display: block !important;
+    }
+    .profile-hidden {
+    display: none !important;
+    }
+    .responsive-profile-tab {
+        flex: 100%;
+        max-width: 100%;
+    }
+    .responsive-profile ul li {
+        margin-top: -60px;
+    }
+    .chess-type {
+    margin-top: -45px !important;
+    }
+    .chess-type img {
+    height: 132px;
+    }
+    .chess-type a h3 {
+    font-size: 30px;
+    }
+    p.computer-timer-section{
+    position: absolute;
+    }
+
+    p.user-timer-section{
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 0px;
+    }
+
+    .play-game-container-resopnsive{
+        display: block !important;
+    }
+    .play-game-container{
+        display: none !important;
+    }
+    .play-game-container-resopnsive .board-go-to-home{
+        position: absolute;
+        top: 155px;
+        left: 132vh;
+    }
+    .play-game-container-resopnsive .board-go-to-home img.go-to-home{
+        width: 50px;
+    }
+    .play-game-container-resopnsive .board-go-to-home p{
+        font-size: 17px;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+    }
+    p.computer-timer-section{
+        font-size: 17px;
+        padding: 6px 0;
+    }
+    p.timer-section .computer-timer-section b {
+        padding: 3px;
+    }
+    p.computer-timer-section span.time {
+        padding: 7px;
+        padding-bottom: 12px;
+        padding-right: 15px;
+        padding-top: 11px;
+    }
+    p.computer-time-filed span.time{
+        margin-left: 80px !important;
+    }
+    p.user-timer-section{
+        font-size: 17px;
+        padding: 6px 0;
+    }
+    .user-timer-section b {
+        padding: 5px !important;
+    }
+    p.user-timer-section span.time {
+        padding: 11px;
+        padding-bottom: 12px;
+        padding-right: 9px;
+        margin-left: 45px
+    }
+        .responsive-tournamet-section{
+        padding: 2px;
+    }
+    .responsive-tournamet-section .table th, .table td {
+         border-top: none !important;
+    }
+    .tournamet-desktop-view{
+        display: none;
+    }
+    .tournamet-card{
+        margin-top: 25px;
+        padding: 0px;
+    }
+    .tournamet-card .card-body{
+        padding: 20px;
+        margin-bottom: -21px;
+    }
+    .tournamet-card .card-body h4{
+        font-size: 17px;
+        width: 50%;
+        display: inline-block;
+    }
+    .tournamet-card .card-body h4:first-child{
+        margin-bottom: 0px !important;
+    }
+    .tournamet-card .card-body a.btn{
+        width: 50%;
+        margin-top: -100px;
+        float: right;
+    }
+    table.custom-table thead{
+    display: none !important;
+    }
+    .profile-card-section {
+     padding: 0px;
+    }
+    .profile-matches-tab{
+        padding: 0px!important;
+    }
 
 }
 
