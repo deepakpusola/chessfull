@@ -11058,6 +11058,10 @@ table.custom-table tbody tr {
     font-size: 17px !important;
   }
 
+  .responsive-profile ul li a.nav-link {
+    margin-right: 0px !important;
+  }
+
   .responsive-profile ul li {
     margin-top: 8px;
     margin-bottom: 12px;
