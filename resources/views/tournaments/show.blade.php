@@ -55,7 +55,7 @@
 
                       <table class="table table-striped custom-table">
                     <thead>
-                        <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
+                        <tr>
                             <th>Opponent Name</th>
                             <th>Rating</th>
                             <th>Time</th>
@@ -66,10 +66,7 @@
                   <tbody>
 
                    @foreach($matches as $match)
-                    <tr style="background: #fff;
-    color: #000;
-    font-size: 22px;
-    font-weight: 700;">
+                    <tr>
                       <td><a href="/players/{{$match->opponent()->id}}" style="color: #000;">{{ $match->opponent()->name }}</a></td>
                       <td>{{ $match->opponent()->rating }}</td>
                       <td>{{ $match->starttime }}</td>
@@ -111,7 +108,7 @@
 
                       <table class="table table-striped custom-table">
                     <thead>
-                        <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
+                        <tr>
                             <th>Player Name</th>
                             <th>Rating</th>
                             <th>Points</th>
@@ -122,10 +119,7 @@
                   <tbody>
 
                    @foreach($winners as $winner)
-                    <tr style="background: #fff;
-                    color: #000;
-                    font-size: 22px;
-                    font-weight: 700;">
+                    <tr>
                       <td><a href="/players/{{$winner->user->id}}" style="color: #000;">{{ $winner->user->name }}</a></td>
                       <td>{{ $winner->user->rating }}</td>
                       <td>{{ $winner->points }}</td>
@@ -153,7 +147,7 @@
 
                       <table class="table table-striped">
                     <thead>
-                        <tr  style="background: #ccc;color: #000;font-weight: 500;font-size: 17px;">
+                        <tr>
                             <th>Name</th>
                             <th>Rating</th>
                             <th>Points</th>
@@ -163,10 +157,7 @@
                   <tbody>
 
                    @foreach($tournament->players as $player)
-                    <tr style="background: #fff;
-    color: #000;
-    font-size: 22px;
-    font-weight: 700;">
+                    <tr>
                       <td><a href="/players/{{$player->id}}" style="color: #000;">{{ $player->name }}</a></td>
                       <td>{{ $player->rating }}</td>
                       <td>{{ $player->pivot->points }}</td>
