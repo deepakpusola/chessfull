@@ -120,7 +120,7 @@
 
                    @foreach($winners as $winner)
                     <tr>
-                      <td><a href="/players/{{$winner->user->id}}" style="color: #000;">{{ $winner->user->name }}</a></td>
+                      <td><a href="/players/{{$winner->user->id}}">{{ $winner->user->name }}</a></td>
                       <td>{{ $winner->user->rating }}</td>
                       <td>{{ $winner->points }}</td>
                      </tr>
@@ -158,7 +158,7 @@
 
                    @foreach($tournament->players as $player)
                     <tr>
-                      <td><a href="/players/{{$player->id}}" style="color: #000;">{{ $player->name }}</a></td>
+                      <td><a href="/players/{{$player->id}}">{{ $player->name }}</a></td>
                       <td>{{ $player->rating }}</td>
                       <td>{{ $player->pivot->points }}</td>
 
