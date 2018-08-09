@@ -11088,6 +11088,7 @@ table.custom-table tbody tr {
     font-size: 17px;
     width: 50%;
     display: inline-block;
+    margin-bottom: 0px !important;
   }
 
   .tournamet-card .card-body a.btn {
