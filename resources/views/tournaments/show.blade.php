@@ -145,7 +145,7 @@
                         </div>
                     @endif
 
-                      <table class="table table-striped">
+                      <table class="table table-striped custom-table">
                     <thead>
                         <tr>
                             <th>Name</th>
