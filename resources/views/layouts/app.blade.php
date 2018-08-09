@@ -83,13 +83,13 @@
                                     <img src="/img/man.png" alt="user">
                                    <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
                                 </a>
-                              <!--   <li style="margin-top: 8px;margin-left: -18px;">
+                                <li class="user-logout-section">
                                 <a class="nav-link" href="{{ route('logout') }}"   onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();" id="settings"><i class="fa fa-power-off"></i></a>
+                                      document.getElementById('logout-form').submit();" id="settings"><i class="fa fa-sign-out"></i></a>
                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                           </form>
-                        </li> -->
+                        </li>
 
                                 <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"

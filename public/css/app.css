@@ -10605,6 +10605,17 @@ body {
   background-color: #ff8800;
 }
 
+li.user-logout-section {
+  position: absolute;
+  display: inline-block;
+  right: 90px;
+  top: 33px;
+}
+
+li.user-logout-section a > i {
+  color: #ffcd52;
+}
+
 .navbar-button .btn3d:focus {
   outline: medium none;
   border: none;
@@ -10864,6 +10875,15 @@ table.custom-table tbody tr {
     display: inline-block !important;
   }
 
+  li.user-logout-section {
+    right: 50px;
+    top: 30px;
+  }
+
+  li.user-logout-section a > i {
+    color: #ffcd52;
+  }
+
   .navbar-expand-md .navbar-nav {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -10918,7 +10938,7 @@ table.custom-table tbody tr {
     font-size: 16px !important;
     position: absolute;
     top: 20px;
-    right: 80px;
+    right: 90px;
   }
 
   .navbar-collapse {
