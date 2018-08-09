@@ -11306,11 +11306,15 @@ table.custom-table tbody tr {
   }
 
   .profile-card-section {
-    padding: 0px;
+    padding: 20px;
   }
 
   .profile-matches-tab {
     padding: 0px !important;
+  }
+
+  .responsive-card-profile {
+    padding: 20px;
   }
 }
 

@@ -624,6 +624,7 @@ and (orientation : landscape){
         margin-top: 8px;
         margin-bottom: 12px;
     }
+
     .responsive-profile{
         display: block !important;
     }
@@ -739,10 +740,13 @@ and (orientation : landscape){
     display: none !important;
     }
     .profile-card-section {
-     padding: 0px;
+     padding: 20px;
     }
     .profile-matches-tab{
         padding: 0px!important;
+    }
+    .responsive-card-profile{
+        padding: 20px;
     }
 
 }
