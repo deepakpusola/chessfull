@@ -31,9 +31,6 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/wallet"><i class="fa fa-google-wallet" aria-hidden="true"></i> Wallet</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/matche"><i class="fa fa-gamepad"></i> Matches</a>
-                  </li>
             </ul>
         </div>
         <div class="col-md-8 responsive-profile-tab">
