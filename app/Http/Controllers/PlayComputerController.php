@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Jenssegers\Agent\Agent;
 class PlayComputerController extends Controller
 {
     /**
@@ -19,6 +19,7 @@ class PlayComputerController extends Controller
 
     public function index()
     {
-    	return view('play.computer');
+        $agent = new Agent();
+    	return view('play.computer', compact('agent'));
     }
 }

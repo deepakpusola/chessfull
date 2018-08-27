@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 
 class PlayRandomController extends Controller
 {
@@ -20,24 +21,25 @@ class PlayRandomController extends Controller
 
     public function index($friendId = null, $gameId = null)
     {
+        $agent = new Agent();
     	if($friendId == null && $gameId == null)
     	{
     		$gameId =  auth()->user()->id * 123;
 
     		$opponent = User::where('live_status', 1)->where('id', '!=' ,auth()->id())->inRandomOrder()->first();
-			
+
 			if($opponent)
 			{
 				$friendId = $opponent->id * 123;
 			} else {
 				$friendId = 0;
 			}
-			
+
     		auth()->user()->live_status = 1;
 
     		auth()->user()->save();
 
-			return view('play.random', compact('gameId', 'friendId'));
+			return view('play.random', compact('gameId', 'friendId','agent'));
 
     	}  else {
     		$player1 = User::find($friendId/123);
@@ -46,7 +48,7 @@ class PlayRandomController extends Controller
 
     		if($player1 == null || $player2 == null)
     		{
-    			
+
     			return redirect('/play-friend')->with('error', 'Invalid game id! No opponent found.');
     		}
 
@@ -54,7 +56,7 @@ class PlayRandomController extends Controller
 
     		$color = $player1->id == auth()->id() ? 'white' : 'black';
 
-    		
+
 
     		$refId = $friendId . '-' . $gameId;
 
@@ -68,7 +70,7 @@ class PlayRandomController extends Controller
     		$player1->save();
     		$player2->save();
 
-    		return view('play.random', compact('opponent', 'color', 'gameId', 'refId', 'friendId', 'roomId'));
+    		return view('play.random', compact('opponent', 'color', 'gameId', 'refId', 'friendId', 'roomId','agent'));
     	}
     }
 

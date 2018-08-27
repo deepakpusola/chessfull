@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- <div class="container play-game-container">
+@if(!$agent->isMobile())
+<div class="container play-game-container">
     <div class="row justify-content-center">
 
 
@@ -32,7 +33,8 @@
 
 
                 </div>
-        </div> -->
+        </div>
+        @else
 
 <div class="container-fluid play-game-container-resopnsive" style="display: none;">
   <script src="/js/chess.js"></script>
@@ -57,7 +59,7 @@
      </div>
   </div>
 
-
+@endif
 <!-- Modal -->
 <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

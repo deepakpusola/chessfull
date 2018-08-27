@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-
+use Jenssegers\Agent\Agent;
 class PlayFriendController extends Controller
 {
     /**
@@ -20,6 +20,7 @@ class PlayFriendController extends Controller
 
     public function index($friendId = null, $gameId = null)
     {
+        $agent = new Agent();
     	if(isset($friendId) && isset($gameId))
     	{
     		$player1 = User::find($friendId/123);
@@ -28,7 +29,7 @@ class PlayFriendController extends Controller
 
     		if($player1 == null || $player2 == null)
     		{
-    			
+
     			return redirect('/play-friend')->with('error', 'Invalid game id! No opponent found.');
     		}
 
@@ -36,17 +37,17 @@ class PlayFriendController extends Controller
 
     		$color = $player1->id == auth()->id() ? 'white' : 'black';
 
-    		
+
 
     		$refId = $friendId . '-' . $gameId;
 
 
     		$gameId =  auth()->user()->id * 123;
 
-    		return view('play.friend', compact('opponent', 'color', 'gameId', 'refId', 'friendId'));
+    		return view('play.friend', compact('opponent', 'color', 'gameId', 'refId', 'friendId','agent'));
 
     	}
     	$gameId =  auth()->user()->id * 123;
-    	return view('play.friend', compact('gameId'));
+    	return view('play.friend', compact('gameId', 'agent'));
     }
 }

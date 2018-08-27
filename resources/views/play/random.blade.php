@@ -1,38 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- <div class="container">
+@if(!$agent->isMobile())
+<div class="container">
     <div class="row justify-content-center">
-
-
-                <div>
-
-                        <script src="/js/chess.js"></script>
-
-
-
-                                               <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
-
-
-                                              <div id="board" style="width: 70vh;"></div>
-
-
-                                                <br>
-                                                <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
-
-
-                                            <br>
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div> -->
-
+        <div>
+            <script src="/js/chess.js"></script>
+            <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ isset($opponent) ? $opponent->name  : 'Waiting For Opponent' }}</b> <span class="time">(<span class="" id="time1">0:05:00</span>)</span></p>
+            <div id="board" style="width: 70vh;"></div>
+            <br>
+            <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
+            <br>
+        </div>
+    </div>
+</div>
+@else
 <div class="container-fluid play-game-container-resopnsive" style="display: none;">
   <script src="/js/chess.js"></script>
   <div class="row">
@@ -55,7 +37,7 @@
       <i id="dest" data-val="0" hidden="true"></i>
      </div>
   </div>
-
+@endif
 
 <!-- Modal -->
 <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
