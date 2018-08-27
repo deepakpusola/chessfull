@@ -6,6 +6,7 @@ use App\User;
 use App\Models\Tournament;
 use App\Models\Match;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 
 class TournamentsController extends Controller
 {
@@ -129,7 +130,9 @@ class TournamentsController extends Controller
 
     	$opponent = $player1->id == auth()->id() ? $player2 : $player1;
 
-    	return view('tournaments.match', compact('match', 'opponent'));
+        $agent = new Agent();
+
+    	return view('tournaments.match', compact('match', 'opponent', 'agent'));
     }
 
     public function play(Match $match)

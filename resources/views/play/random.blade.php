@@ -12,6 +12,8 @@
             <p class="timer-section" style="font-weight: bold;font-size: 22px;"><b>{{ Auth::user()->name }}</b> <span class="time">(<span class="" id="time2">0:05:00</span>)</span></p>
             <br>
         </div>
+          <i id="source" data-val="0" hidden="true"></i>
+      <i id="dest" data-val="0" hidden="true"></i>
     </div>
 </div>
 @else
