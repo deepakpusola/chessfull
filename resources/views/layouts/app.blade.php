@@ -32,7 +32,8 @@
 <body>
     <div id="app">
 
-       @if(!Agent::isMobile() && !request()->is('play-*'))
+       @if(Agent::isMobile() && request()->is('play-*'))
+       @else
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand-logo-visible" href="{{ url('/') }}">
