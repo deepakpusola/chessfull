@@ -1,179 +1,237 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+@extends('layouts.app')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card tournamet-card">
+                <div class="card-header" style="font-size: 22px;">Tournament Info
+                  @if($tournament->is_live)
+                    <span class="badge badge-warning" style="margin-left: 7px;">Live</span>
+                  @endif
+                  @if($tournament->closed)
+                    <span class="badge badge-warning" style="margin-left: 7px;">Closed</span>
+                  @endif
+                </div>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+                <div class="card-body">
+                    <h4 style="margin-bottom: 18px;"><b>Tournament Fees :</b> &#8377; {{ $tournament->fees }}</h4>
+                    <hr style="background: #fff;">
+                    <h4 style="margin-bottom: 18px;"><b>First Prize :</b> &#8377; {{ $tournament->first_prize }}</h4>
+                    <h4 style="margin-bottom: 18px;"><b>Second Prize :</b> &#8377; {{ $tournament->second_prize }}</h4>
+                    <h4 style="margin-bottom: 18px;"><b>Third Prize :</b> &#8377; {{ $tournament->third_prize }}</h4>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+                    <br>
 
+                    @if(!auth()->user()->isEnrolled($tournament) && !$tournament->closed && !$tournament->is_live)
+                     <a href="/tournaments/{{$tournament->id}}/join" class="btn btn-primary btn-lg" style="width: 100%;">Join ( Rs. {{ $tournament->fees}} )</a>
+                    @elseif(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
+                       <a href="#" class="btn btn-primary btn-lg disabled" style="width: 100%;">Enrolled</a>
+                    @else
+                        <a href="#" class="btn btn-danger btn-lg disabled">Closed</a>
+                    @endif
 
-    <link rel="stylesheet" href="/css/chessboard.css">
-
-    <script src="/js/sweetalert.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-
-       @if(Agent::isMobile() && request()->is('play-*'))
-       @else
-        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand-logo-visible" href="{{ url('/') }}">
-                   <img src="/img/logo.png" style="width: 190px;margin-top: 13px;">
-                </a>
-                <a class="navbar-brand-logo-hide" href="{{ url('/') }}">
-                   <img src="/img/crown.png">
-                </a>
-               <!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    @auth
-                    <ul class="nav navbar-nav navbar-center navbar-add-cash-responsive" style="display: inline-block;">
-                        <li class="logo-nav" style="margin-top: 13px;display: inline-block;"><a href=""></a><img src="/img/rupee.png" alt="logos"></li>
-                        <li style="display: inline-block;" class="text-list"><a href="#" class="text-style">{{ auth()->user()->wallet_balance }}</a></li>
-
-                        <li style="display: inline-block;"> <button type="button" class="btn btn-success btn3d" data-toggle="modal" data-target="#addMoney" > Add Cash</button></li>
-                    </ul>
-                    @endauth
-                    <ul class="navbar-nav ml-auto login-navbar" style="margin-top:12px;">
-                        <!-- Authentication Links -->
-
-                        @guest
-                            <li class="nav-item pull-left login-register">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item pull-left">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @else
-                            <!-- <li class="nav-item  navbar-button">
-                                <a id="navbarDropdown" class="nav-link" href="/profile" role="button"  aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <button type="button" class="btn  btn3d" >My Profile</button> -->
-                                   <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
-                                <!-- </a>
-                            </li> -->
-                            <li class="navbar-button register-button-section" style="display: inline-block;">
-                                <a class="nav-link" href="/profile" >
-                                    <!-- <button type="button" class="btn btn3d">My Profile</button> -->
-                                    <img src="/img/man.png" alt="user">
-                                   <!--  {{ Auth::user()->name }} <span class="caret"></span> -->
-                                </a>
-                                <li class="user-logout-section">
-                                <a class="nav-link" href="{{ route('logout') }}"   onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();" id="settings"><i class="fa fa-sign-out"></i></a>
-                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                          </form>
-                        </li>
-
-                                <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div> -->
-                            </li>
-                        @endguest
-                    </ul>
                 </div>
             </div>
-        </nav>
-       @endif
+        </div>
 
-        <main class="py-5 mt-5">
-            @yield('content')
-        </main>
+        <div class="col-md-8">
+
+
+
+            <p class="badge badge-warning" style="font-size: 22px;
+            display:{{ $tournament->is_live ? 'block' : 'none' }}">{{ !$tournament->closed ? 'Ends in :' : '' }}<span id="endtimer"></span></p>
+
+
+
+
+          @if(auth()->user()->isEnrolled($tournament) && !$tournament->closed)
+            <div class="card tournamet-card">
+                <div class="card-header" style="font-size: 22px;">My Matches</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                      <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Opponent Name</th>
+                            <th>Rating</th>
+                            <th>Time</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                  <tbody>
+
+                   @foreach($matches as $match)
+                    <tr>
+                      <td><a href="/players/{{$match->opponent()->id}}" style="color: #000;">{{ $match->opponent()->name }}</a></td>
+                      <td>{{ $match->opponent()->rating }}</td>
+                      <td>{{ $match->starttime }}</td>
+                      @if($match->result == -1 && $match->starttime <= \Carbon\Carbon::now('Asia/Kolkata'))
+                      <td><a href="/matches/{{$match->id}}" class="btn btn-primary">Play</a></td>
+                      @else
+                        @if($match->result == 0)
+                         <td><span class="badge badge-warning">Draw</span></td>
+                        @elseif($match->result == auth()->id())
+                        <td><span class="badge badge-success">Won</span></td>
+                        @elseif($match->result == -1)
+                        <td><span class="badge badge-primary">Pending</span></td>
+                        @else
+                          <td><span class="badge badge-danger">Lost</span></td>
+                        @endif
+                      @endif
+                    </tr>
+                   @endforeach
+                  </tbody>
+                </table>
+
+
+                </div>
+            </div>
+
+            @endif
+
+            @if($tournament->closed)
+
+                <div class="card tournamet-card">
+                <div class="card-header" style="font-size: 22px;">Winners</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                      <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Rating</th>
+                            <th>Points</th>
+
+
+                        </tr>
+                    </thead>
+                  <tbody>
+
+                   @foreach($winners as $winner)
+                    <tr>
+                      <td><a href="/players/{{$winner->user->id}}">{{ $winner->user->name }}</a></td>
+                      <td>{{ $winner->user->rating }}</td>
+                      <td>{{ $winner->points }}</td>
+                     </tr>
+                   @endforeach
+                  </tbody>
+                </table>
+
+
+                </div>
+            </div>
+
+
+            @endif
+
+            <div class="card tournamet-card">
+                <div class="card-header" style="font-size: 22px;">Members Enrolled</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                      <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Rating</th>
+                            <th>Points</th>
+
+                        </tr>
+                    </thead>
+                  <tbody>
+
+                   @foreach($tournament->players as $player)
+                    <tr>
+                      <td><a href="/players/{{$player->id}}">{{ $player->name }}</a></td>
+                      <td>{{ $player->rating }}</td>
+                      <td>{{ $player->pivot->points }}</td>
+
+                    </tr>
+                   @endforeach
+                  </tbody>
+                </table>
+
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
-
-
-    <div class="modal fade" id="addMoney" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <form method="POST" action="/wallet/add">
-             @csrf
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Cash</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <h3>Enter amount to add</h3>
-
-                <input type="number" name="amount" class="form-control">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Continue</button>
-              </div>
-        </form>
-    </div>
-  </div>
 </div>
+@endsection
 
 
-       @if( session('flash_title') && session('flash_message'))
-             <script type="text/javascript">
-                 swal({
-          title: "{{ session('flash_title') }}",
-          html: true,
-          text: "<span style='color:#0a0a0a;font-weight:400'>{!! session('flash_message') !!}</span>",
-          type: "success",
-          confirmButtonColor: "#0048bc",
-          confirmButtonText: "Cool"
-        });
-      </script>
-     @endif
-
-      @if( session('error_title') && session('error_message'))
-             <script type="text/javascript">
-                 swal({
-          title: "{{ session('error_title') }}",
-          html: true,
-          text: "<span style='color:#0a0a0a;font-weight:400'>{!! session('error_message') !!}</span>",
-          type: "error",
-          confirmButtonColor: "#0048bc",
-          confirmButtonText: "Ok"
-        });
-      </script>
-     @endif
+@section('scripts')
 
 
-    <script src="/js/jquery-plugin-collection.js"></script>
-    <script src="/js/chessboard.js"></script>
-     <script src="/js/chessboardjs-themes.js"></script>
-    @yield('scripts')
+ <script>
+// Set the date we're counting down to
+var countDownDate = new Date("{{ $tournament->endtime }}").getTime();
+var startDownDate = new Date("{{ $tournament->starttime }}").getTime();
 
-</body>
-</html>
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+  var startDistance = startDownDate - now;
+
+  @if(!$tournament->is_live && !$tournament->closed)
+    if(startDistance < 0)
+    {
+      console.log('refresshing');
+      window.location.reload( );
+    }
+  @endif
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("endtimer").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("endtimer").innerHTML = "EXPIRED";
+  }
+
+  @if(!$tournament->closed)
+    if(distance < 0)
+    {
+       window.location.reload();
+    }
+  @endif
+}, 1000);
+</script>
+
+
+@endsection
+
