@@ -9,6 +9,9 @@
                   @if($tournament->is_live)
                     <span class="badge badge-warning" style="margin-left: 7px;">Live</span>
                   @endif
+                  @if($tournament->closed)
+                    <span class="badge badge-warning" style="margin-left: 7px;">Closed</span>
+                  @endif
                 </div>
 
                 <div class="card-body">
