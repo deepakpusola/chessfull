@@ -153,7 +153,9 @@ class TournamentsController extends Controller
 
     	$play = true;
 
-    	return view('tournaments.match', compact('match', 'play', 'color', 'opponent'));
+        $agent = new Agent();
+
+    	return view('tournaments.match', compact('match', 'play', 'color', 'opponent', 'agent'));
     }
 
     public function updateStatus(Match $match, $status)
